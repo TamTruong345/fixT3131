@@ -24,7 +24,7 @@ class Template extends Model {
     }
 
     /*
-     * Add one record into templates table]
+     * Add one record into templates table
      *
      * @param array Data import
      * @return int template_id
@@ -46,11 +46,26 @@ class Template extends Model {
                     ->update(['template_deleted' => 1]);
     }
 
+    /*
+	 * Edit record of templates tables
+	 *
+	 * @param array data update
+	 */
     protected function editRecord($data) {
         unset($data['_token']);
         $data['updated_at'] = date('Y-m-d H:i:s');
         $this->where('template_id', $data['template_id'])
             ->update($data);
+    }
+
+    /*
+	 * Search customer by id
+	 *
+	 * @param int customer_id
+	 * @return array customer detail
+	 */
+    protected function fetchOne($customer_id) {
+        return $this->where('customer_id', $customer_id)->first();
     }
 }
 

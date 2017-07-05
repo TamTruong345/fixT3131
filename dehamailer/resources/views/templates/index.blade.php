@@ -1,28 +1,3 @@
-<style>
-    .loader {
-        border: 5px solid #f3f3f3; /* Light grey */
-        border-top: 5px solid #3498db; /* Blue */
-        border-bottom: 5px solid #3498db;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        -webkit-animation: spin 2s linear infinite;
-        animation: spin 2s linear infinite;
-        position: fixed;
-        top: 100px;
-        left: 50%;
-    }
-
-    @-webkit-keyframes spin {
-        0% { -webkit-transform: rotate(0deg); }
-        100% { -webkit-transform: rotate(360deg); }
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-</style>
 @extends('layouts.app')
 
 @section('title', 'Page Title')
@@ -234,4 +209,4 @@
     </div><!-- /.modal -->
 @endsection
 
-<script type="text/javascript" src="{{ URL::asset('js/customer.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/template.js') }}"></script>
