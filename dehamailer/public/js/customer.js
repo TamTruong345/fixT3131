@@ -1,5 +1,5 @@
 function deleteTemplate(customer_id) {
-    $('.loader').attr('style', 'block')
+    $('.loader').attr('style', 'block');
     var cfm =  confirm('Are you sure?');
     var _token = $('input[name="_token"]').val();
     if (cfm) {
@@ -19,11 +19,11 @@ function deleteTemplate(customer_id) {
 };
 
 function loading() {
-    $('.loader').attr('style', 'block')
+    $('.loader').attr('style', 'block');
 }
 
 function openModalEditTemplate(customer_id) {
-    $('.loader').attr('style', 'display: block')
+    $('.loader').attr('style', 'display: block');
     var _token = $('input[name="_token"]').val();
     $.ajax({
         method: "GET",
@@ -45,11 +45,13 @@ function openModalEditTemplate(customer_id) {
 }
 
 function resetSearch() {
+    $('.loader').attr('style', 'display: block');
     $.ajax({
         method: "GET",
         url: "/customer/reset",
         data: {},
         success: function () {
+            $('.loader').attr('style', 'display: none');
             window.location = "/customer";
         }
     })
