@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-
-class Template extends Model {
+class Template extends Main {
     /**
      * The table associated with the extends.
      *
@@ -14,7 +11,7 @@ class Template extends Model {
     protected $table = 'templates';
     protected $primaryKey = 'template_id';
     
-    /*
+    /**
      * Get a listing of templates with condition
      *
      * @return array Response
@@ -23,7 +20,7 @@ class Template extends Model {
         return $this->where('template_deleted', '=', 0)->paginate(10);
     }
 
-    /*
+    /**
      * Add one record into templates table
      *
      * @param array Data import
@@ -36,7 +33,7 @@ class Template extends Model {
         return $this->insertGetId($data);
     }
     
-    /*
+    /**
      * Delete item of templates table
      * 
      * @param int template_id
@@ -46,7 +43,7 @@ class Template extends Model {
                     ->update(['template_deleted' => 1]);
     }
 
-    /*
+    /**
 	 * Edit record of templates tables
 	 *
 	 * @param array data update
@@ -58,14 +55,14 @@ class Template extends Model {
             ->update($data);
     }
 
-    /*
+    /**
 	 * Search customer by id
 	 *
 	 * @param int customer_id
 	 * @return array customer detail
 	 */
-    protected function fetchOne($customer_id) {
-        return $this->where('customer_id', $customer_id)->first();
+    protected function fetchOne($template_id) {
+        return $this->where('template_id', $template_id)->first();
     }
 }
 

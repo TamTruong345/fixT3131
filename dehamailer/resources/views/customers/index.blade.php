@@ -19,19 +19,20 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <h4 class="panel-title">Search</h4>
-                <form action="" method="POST" class="form-group form-horizontal" id="mailSearch-form">
+                <form action="/customer/search" method="POST" class="form-group form-horizontal" id="mailSearch-form">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="mailSearchCompanyName" class="col-sm-3 control-label form-label">Company name</label>
+                                <label for="formSearchCustomerName" class="col-sm-3 control-label form-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="mailSearchCompanyName">
+                                    <input type="text" class="form-control" name="customer_name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="mailSearchEmail" class="col-sm-3 control-label form-label">Email</label>
+                                <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Mail</label>
                                 <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="mailSearchEmail">
+                                    <input type="email" class="form-control" name="customer_mail">
                                 </div>
                             </div>
                         </div>
@@ -40,9 +41,9 @@
                                 <label for="inputEmail3" class="col-sm-3 control-label form-label">Created date</label>
                                 <div class="col-sm-9">
                                     <div class="input-daterange input-group">
-                                        <input type="text" class="input-sm form-control" name="createdDateStart" />
+                                        <input type="text" class="input-sm form-control daterange" name="created_at_from"/>
                                         <span class="input-group-addon">to</span>
-                                        <input type="text" class="input-sm form-control" name="createdDateEnd" />
+                                        <input type="text" class="input-sm form-control daterange" name="created_at_to" />
                                     </div>
                                 </div>
                             </div>
@@ -50,9 +51,9 @@
                                 <label for="inputEmail3" class="col-sm-3 control-label form-label">Latest mail time</label>
                                 <div class="col-sm-9">
                                     <div class="input-daterange input-group">
-                                        <input type="text" class="input-sm form-control" name="createdDateStart" />
+                                        <input type="text" class="input-sm form-control daterange" name="customer_last_sent_mail_from" />
                                         <span class="input-group-addon">to</span>
-                                        <input type="text" class="input-sm form-control" name="createdDateEnd" />
+                                        <input type="text" class="input-sm form-control daterange" name="customer_last_sent_mail_to" />
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +62,7 @@
                             <div class="row">
                                 <div class="col-xs-12 text-center">
                                     <input type="submit" class="btn btn-success" value="Search">
-                                    <input type="button" class="btn btn-warning btn-reset" value="Reset" />
+                                    <input type="button" class="btn btn-warning btn-reset" onclick="resetSearch()" value="Reset" />
                                 </div>
                             </div>
                         </div>
@@ -92,7 +93,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($customers as $cus)
+                        @foreach ($data['customers'] as $cus)
                             <tr>
                                 <td class="text-center"> <input type="checkbox" name=""> </td>
                                 <td>{{ $cus->customer_name }}</td>
@@ -111,7 +112,7 @@
         </div>
 
         <div class="text-center">
-            {!! $customers->render() !!}
+            {!! $data['customers']->render() !!}
         </div>
     </div>
     <!-- Send mail modal -->

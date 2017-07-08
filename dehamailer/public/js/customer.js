@@ -39,3 +39,14 @@ function openModalEditTemplate(customer_id) {
         }
     });
 }
+
+function resetSearch() {
+    $.ajax({
+        method: "GET",
+        url: "/customer/reset",
+        data: {},
+        success: function () {
+            window.location = "/customer";
+        }
+    })
+}
