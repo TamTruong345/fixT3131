@@ -24,6 +24,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="{{ URL::asset('js/jquery-1.12.3.min.js') }}"></script>
 </head>
 <body class="fixed-sidebar fixed-header content-appear skin-default">
     <div class="wrapper">
@@ -107,7 +108,6 @@
         This is the master sidebar.
     @show
     <!-- Vendor JS -->
-    <script type="text/javascript" src="{{ URL::asset('js/jquery-1.12.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/detectmobilebrowser/detectmobilebrowser.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/jscrollpane/jquery.jscrollpane.min.js') }}"></script>
@@ -117,7 +117,8 @@
     <script type="text/javascript" src="{{ URL::asset('js/jquery-fullscreen-plugin/jquery.fullscreen-min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script>
-        $('#mailSearch-form .input-daterange').datepicker({
+        $('#mailSearch-form .daterange').datepicker({
+            format: 'yyyy/mm/dd',
         });
     </script>
     <!-- Neptune JS -->

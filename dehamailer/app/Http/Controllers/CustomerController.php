@@ -8,25 +8,28 @@ use App\Http\Flash;
 
 class CustomerController extends Controller
 {
-    protected $errors = [];
     protected $request;
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
     
-    /*
+    /**
     * Display a listing of customers.
     *
     * @return Response
     */
     
 	public function index() {
-		$customers = Customer::getList();
-		return view('customers.index', array('customers' => $customers));
+		$data = ['conditions' => []]; 
+		if ($this->request->session()->has('search_customer')) {
+			$data ['conditions'] = $this->request->session()->get('search_customer');
+		}
+		$data['customers'] = Customer::getList($data ['conditions']);
+		return view('customers.index', array('data' => $data));
 	}
 	
-	/*
+	/**
 	* Store a new customer
 	*
 	* @return Response
@@ -34,11 +37,11 @@ class CustomerController extends Controller
 	public function store() {
 		$data = $this->request->toArray();
 		Customer::addNewRecord($data);
-		flash('Add customer success!');
+		flash('Add customer success!')->success();
 		return redirect()->route('customer.index');
 	}
 	
-	/*
+	/**
 	* edit customer
 	* 
 	* @return Response
@@ -50,7 +53,7 @@ class CustomerController extends Controller
 		return redirect()->route('customer.index');
 	}
 	
-	/*
+	/**
 	* Destroy customer
 	*
 	* @param int customer_id
@@ -59,9 +62,31 @@ class CustomerController extends Controller
 		Customer::deleteCustomer($customer_id);
 	}
 	
-	
+	/**
+	 * Get Customer Detail
+	 * 
+	 * @param int customer_id
+	 * @return json customer detail
+	 */
 	public function show($customer_id) {
 		$customerDetail = Customer::fetchOne($customer_id);
 		return json_encode($customerDetail);
+	}
+
+	/**
+	 * Set condition search
+	 */
+	public function search() {
+		$condition = $this->request->toArray();
+		unset($condition['_token']);
+		$this->request->session()->put('search_customer', $condition);
+		return redirect()->route('customer.index');
+	}
+
+	/**
+	 * Reset condition search customer
+	 */
+	public function reset() {
+		$this->request->session()->forget('search_customer');
 	}
 }

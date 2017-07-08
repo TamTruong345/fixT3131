@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-
-class Customer extends Model {
+class Customer extends Main {
 	/**
 	 * The table associated with the extends.
 	 *
@@ -14,16 +11,19 @@ class Customer extends Model {
 	protected $table = 'customers';
 	protected $primaryKey = 'customer_id';
 
-	/*
+	/**
 	 * Get a listing of customer with condition
 	 *
 	 * @return array Response
 	 */
-	protected function getList() {
-		return $this->where('customer_deleted', '=', 0)->paginate(10);
+	protected function getList($condition) {
+		$condition = $this->removeItemIsEmpty($condition);
+		$condition = $this->makeConditionSearchForCustomer($condition);
+		return $query = $this->where($condition)
+					->paginate(10);
 	}
 
-	/*
+	/**
 	 * Add one record into customer table
 	 *
 	 * @param array Data import
@@ -36,7 +36,7 @@ class Customer extends Model {
 		return $this->insertGetId($data);
 	}
 
-	/*
+	/**
 	 * Delete item of customers table
 	 *
 	 * @param int customer_id
@@ -46,7 +46,7 @@ class Customer extends Model {
 			->update(['customer_deleted' => 1]);
 	}
 
-	/*
+	/**
 	 * Edit record of customers tables
 	 *
 	 * @param array data update
@@ -58,7 +58,7 @@ class Customer extends Model {
 			->update($data);
 	}
 
-	/*
+	/**
 	 * Search customer by id
 	 *
 	 * @param int customer_id
@@ -66,6 +66,37 @@ class Customer extends Model {
 	 */
 	protected function fetchOne($customer_id) {
 		return $this->where('customer_id', $customer_id)->first();
+	}
+
+	/**
+	 * Make condition search for customer
+	 *
+	 * @param $condition
+	 * @return array
+	 */
+	private function makeConditionSearchForCustomer($condition) {
+		$predicates = [];
+		$predicates[] = ['customer_deleted', '=', '0'];
+		if ($this->has($condition, 'customer_name')) {
+			$predicates[] = ['customer_name', '=', $condition['customer_name']];
+		}
+		if ($this->has($condition, 'customer_mail')) {
+			$predicates[] = ['customer_mail', '=', $condition['customer_mail']];
+		}
+		if ($this->has($condition, 'created_at_from')) {
+			$predicates[] = ['created_at', '>=', $this->convertDate($condition['created_at_from'])];
+		}
+		if ($this->has($condition, 'created_at_to')) {
+			$predicates[] = ['created_at', '<=', $this->convertDate($condition['created_at_to'])];
+		}
+		if ($this->has($condition, 'customer_last_sent_mail_from')) {
+			$predicates[] = ['customer_last_sent_mail', '>=', $this->convertDate($condition['customer_last_sent_mail_from'])];
+		}
+		if ($this->has($condition, 'customer_last_sent_mail_to')) {
+			$predicates[] = ['customer_last_sent_mail', '<=', $this->convertDate($condition['customer_last_sent_mail_to'])];
+		}
+		
+		return $predicates;
 	}
 }
 

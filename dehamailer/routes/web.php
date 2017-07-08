@@ -19,6 +19,10 @@ Route::resource('template', 'TemplateController');
 
 Route::post('/customer/update', 'CustomerController@update');
 
+Route::post('/customer/search', 'CustomerController@search');
+
+Route::get('/customer/reset', 'CustomerController@reset');
+
 Route::resource('customer', 'CustomerController');
 
 Route::resource('setting', 'SettingController');

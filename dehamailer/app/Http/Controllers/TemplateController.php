@@ -8,14 +8,13 @@ use App\Http\Flash;
 
 class TemplateController extends Controller
 {
-    protected $errors = [];
     protected $request;
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-    /*
+    /**
      * Display a listing of templates.
      *
      * @return Response
@@ -25,7 +24,7 @@ class TemplateController extends Controller
         return view('templates.index', array('templates' => $templates));
     }
     
-    /*
+    /**
      * Store a new template
      *
      * @return Response
@@ -39,7 +38,7 @@ class TemplateController extends Controller
         return redirect()->route('template.index');
     }
     
-    /*
+    /**
      * edit template
      * 
      * @return Response
@@ -55,7 +54,7 @@ class TemplateController extends Controller
         return redirect()->route('template.index');
     }
 
-    /*
+    /**
      * Destroy template
      *
      * @param int template_id
@@ -64,13 +63,18 @@ class TemplateController extends Controller
         Template::deleteTemplate($template_id);
     }
 
-
+    /**
+	 * Get Template Detail
+	 *
+	 * @param int template_id
+	 * @return json template detail
+	 */
     public function show($template_id) {
-        $templateDetail = Template::where('template_id', $template_id)->first();
+        $templateDetail = Template::fetchOne($template_id);
         return json_encode($templateDetail);
     }
 
-    /*
+    /**
      * Store a file upload
      * 
      * @return string path
@@ -86,7 +90,7 @@ class TemplateController extends Controller
         return $path;
     }
 
-    /*
+    /**
      * Validate file upload
      *
      * @return boolean
