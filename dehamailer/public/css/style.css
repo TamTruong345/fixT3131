@@ -8428,7 +8428,7 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
   position: fixed;
-  top: 100px;
+  top: 80px;
   left: 50%;
 }
 

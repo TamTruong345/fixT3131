@@ -18,6 +18,10 @@ function deleteTemplate(customer_id) {
     }
 };
 
+function loading() {
+    $('.loader').attr('style', 'block')
+}
+
 function openModalEditTemplate(customer_id) {
     $('.loader').attr('style', 'display: block')
     var _token = $('input[name="_token"]').val();
