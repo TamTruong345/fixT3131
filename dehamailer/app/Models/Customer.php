@@ -84,19 +84,45 @@ class Customer extends Main {
 			$predicates[] = ['customer_mail', '=', $condition['customer_mail']];
 		}
 		if ($this->has($condition, 'created_at_from')) {
-			$predicates[] = ['created_at', '>=', $this->convertDate($condition['created_at_from'])];
+			$predicates[] = ['created_at', '>=', $this->date_format($condition['created_at_from'])];
 		}
 		if ($this->has($condition, 'created_at_to')) {
-			$predicates[] = ['created_at', '<=', $this->convertDate($condition['created_at_to'])];
+			$predicates[] = ['created_at', '<=', $this->date_format($condition['created_at_to'])];
 		}
 		if ($this->has($condition, 'customer_last_sent_mail_from')) {
-			$predicates[] = ['customer_last_sent_mail', '>=', $this->convertDate($condition['customer_last_sent_mail_from'])];
+			$predicates[] = ['customer_last_sent_mail', '>=', $this->date_format($condition['customer_last_sent_mail_from'])];
 		}
 		if ($this->has($condition, 'customer_last_sent_mail_to')) {
-			$predicates[] = ['customer_last_sent_mail', '<=', $this->convertDate($condition['customer_last_sent_mail_to'])];
+			$predicates[] = ['customer_last_sent_mail', '<=', $this->date_format($condition['customer_last_sent_mail_to'])];
 		}
 		
 		return $predicates;
+	}
+
+	/**
+	 * Search customer by id
+	 * 
+	 * @param $input
+	 * @return mixed
+	 */
+	protected function searchCustomerById($input) {
+		$customers = $this->setArrayCustomerId($input);
+		return $this->whereIn('customer_id', $customers)
+					->get();
+	}
+
+	/**
+	 * Set array customer id
+	 * 
+	 * @param $input
+	 * @return array
+	 */
+	protected function setArrayCustomerId($input) {
+		$customers = [];
+		foreach($input as $cus => $val) {
+			$customers[] = $cus;
+		}
+		return $customers;
 	}
 }
 

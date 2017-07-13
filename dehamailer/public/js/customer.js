@@ -56,3 +56,17 @@ function resetSearch() {
         }
     })
 }
+
+$("#checkAllCustomer").click(function(){
+    $('.checkbox-item').not(this).prop('checked', this.checked);
+});
+
+function createMail() {
+    $template_id = $('#selTemplate').val();
+    if ($template_id == '') {
+        return false;
+    } else {
+        $('#template_id').val($template_id);
+        $('#formCreateMail').submit();
+    }
+}

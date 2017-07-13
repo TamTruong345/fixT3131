@@ -72,7 +72,7 @@
         </div>
         <!-- End panel -->
         <div class="m-b-1 pull-right">
-            <a href="javascript:;" class="btn btn-warning" data-toggle="modal" data-target="#sendMailModal">Send Mail</a>
+            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#sendMailModal">Send Mail</a>
             <a href="#" class="btn btn-success">Import</a>
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addCustomerModal">Add</a>
         </div>
@@ -83,28 +83,32 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Full name</th>
-                            <th>Email</th>
-                            <th >Last sent email</th>
-                            <th>Created date</th>
+                            <th class="text-center"><input type="checkbox" id="checkAllCustomer" name=""></th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Full name</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Last sent email</th>
+                            <th class="text-center">Created date</th>
                             <th class="text-center" style="width: 150px;"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($data['customers'] as $cus)
-                            <tr>
-                                <td class="text-center"> <input type="checkbox" name=""> </td>
-                                <td>{{ $cus->customer_name }}</td>
-                                <td>{{ $cus->customer_full_name }}</td>
-                                <td>{{ $cus->customer_mail }}</td>
-                                <td>{{ $cus->customer_last_sent_mail }}</td>
-                                <td>{{ $cus->created_at }}</td>
-                                <td class="text-center"><a href="#" class="btn btn-info" onclick="openModalEditTemplate({{ $cus->customer_id }})"><i class="fa fa-pencil-square-o visible-xs"></i><span class="hidden-xs">Edit</span></a>
-                                    <a href="#" class="btn btn-danger" onclick="deleteTemplate({{ $cus->customer_id }})"><i class="fa fa-trash visible-xs"></i><span class="hidden-xs">Delete</span></a></td>
-                            </tr>
-                        @endforeach
+                        <form action="/create_mail" method="POST" class="form-group form-horizontal" id="formCreateMail">
+                            @foreach ($data['customers'] as $cus)
+                                <tr>
+                                    <td class="text-center"> <input type="checkbox" class="checkbox-item" name="customers[{{ $cus->customer_id }}]"> </td>
+                                    <td>{{ $cus->customer_name }}</td>
+                                    <td>{{ $cus->customer_full_name }}</td>
+                                    <td>{{ $cus->customer_mail }}</td>
+                                    <td>{{ $cus->customer_last_sent_mail }}</td>
+                                    <td>{{ $cus->created_at }}</td>
+                                    <td class="text-center"><a href="#" class="btn btn-info" onclick="openModalEditTemplate({{ $cus->customer_id }})"><i class="fa fa-pencil-square-o visible-xs"></i><span class="hidden-xs">Edit</span></a>
+                                        <a href="#" class="btn btn-danger" onclick="deleteTemplate({{ $cus->customer_id }})"><i class="fa fa-trash visible-xs"></i><span class="hidden-xs">Delete</span></a></td>
+                                </tr>
+                            @endforeach
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="template_id" id="template_id" value=""/>
+                        </form>
                         </tbody>
                     </table>
                 </div>
@@ -122,23 +126,26 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="gridSystemModalLabel">Send mail</h4>
+                    <div class="alert alert-danger">
+                        <strong>Danger!</strong> Please choose a template to send mail.
+                    </div>
                 </div>
                 <form class="form-horizontal">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="sel1" class="col-sm-4 control-label">Template mail:</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="sel1">
-                                    <option>Template mail 1</option>
-                                    <option>Template mail 2</option>
-                                    <option>Template mail 3</option>
-                                    <option>Template mail 4</option>
+                                <select class="form-control" id="selTemplate">
+                                    <option>-------choose------</option>
+                                    @foreach($data['templates'] as $temp)
+                                        <option value="{{ $temp['template_id'] }}">{{ $temp['template_subject'] }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="createMail()">Save</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -231,6 +238,5 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <script type="text/javascript" src="{{ URL::asset('js/customer.js') }}"></script>
 @endsection
-
-<script type="text/javascript" src="{{ URL::asset('js/customer.js') }}"></script>

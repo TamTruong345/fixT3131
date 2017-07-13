@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label for="modalAddTemplateContent" class="col-sm-3 control-label">Content</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="template_content" id="modalAddTemplateContent" rows="10"></textarea>
+                                <textarea class="form-control" name="template_content" id="modalAddTemplateContent" rows="10">Dear [FULLNAME]</textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -207,6 +207,5 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <script type="text/javascript" src="{{ URL::asset('js/template.js') }}"></script>
 @endsection
-
-<script type="text/javascript" src="{{ URL::asset('js/template.js') }}"></script>
