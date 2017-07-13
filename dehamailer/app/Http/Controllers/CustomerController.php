@@ -98,10 +98,14 @@ class CustomerController extends Controller
 	 */
 	public function create_mail() {
 		$data = $this->request->toArray();
-		$customers = Customer::searchCustomerById($data['customers'])->toArray();
-		$template = Template::fetchOne($data['template_id'])->toArray();
-		Mail::create_mail($customers, $template);
-		flash('Create mail success!')->success();
+		if ( isset($data['customers']) ) {
+			$customers = Customer::searchCustomerById($data['customers'])->toArray();
+			$template = Template::fetchOne($data['template_id'])->toArray();
+			Mail::create_mail($customers, $template);
+			flash('Create mail success!')->success();
+		} else {
+			flash('Create mail fail!')->error();
+		}
 		return redirect()->route('customer.index');
 	}
 }
