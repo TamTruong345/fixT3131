@@ -21,7 +21,13 @@ class Main extends Model {
 		return $data;
 	}
 
-	protected function convertDate($date) {
+	/**
+	 * Format date
+	 *
+	 * @param $date
+	 * @return mixed
+	 */
+	protected function date_format($date) {
 		return str_replace('/', '-', $date);
 	}
 

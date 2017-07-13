@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Template;
+use App\Models\Mail;
 use Illuminate\Http\Request;
 use App\Http\Flash;
 
@@ -26,6 +28,7 @@ class CustomerController extends Controller
 			$data ['conditions'] = $this->request->session()->get('search_customer');
 		}
 		$data['customers'] = Customer::getList($data ['conditions']);
+		$data['templates'] = Template::fetchAll();
 		return view('customers.index', array('data' => $data));
 	}
 	
@@ -88,5 +91,17 @@ class CustomerController extends Controller
 	 */
 	public function reset() {
 		$this->request->session()->forget('search_customer');
+	}
+
+	/**
+	 * Create mail
+	 */
+	public function create_mail() {
+		$data = $this->request->toArray();
+		$customers = Customer::searchCustomerById($data['customers'])->toArray();
+		$template = Template::fetchOne($data['template_id'])->toArray();
+		Mail::create_mail($customers, $template);
+		flash('Create mail success!')->success();
+		return redirect()->route('customer.index');
 	}
 }

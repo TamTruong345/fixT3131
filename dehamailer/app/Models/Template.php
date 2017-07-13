@@ -64,6 +64,15 @@ class Template extends Main {
     protected function fetchOne($template_id) {
         return $this->where('template_id', $template_id)->first();
     }
+
+	/**
+	 * Fetch all template
+	 *
+	 * @return mixed
+	 */
+	protected function fetchAll() {
+		return $this->where('template_deleted', 0)->get();
+	}
 }
 
 ?>

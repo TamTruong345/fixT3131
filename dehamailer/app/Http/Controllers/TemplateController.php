@@ -84,9 +84,10 @@ class TemplateController extends Controller
             return '';
         }
         $extension = $this->request->file('template_attachment')->extension();
-        $path = $this->request->file('template_attachment')->storeAs(
-            'templates', date('YmdHis').".$extension"
+        $this->request->file('template_attachment')->move(
+            base_path() . '/public/uploads/templates/', date('YmdHis').".$extension"
         );
+        $path = "./uploads/templates/".date('YmdHis').".$extension";
         return $path;
     }
 
