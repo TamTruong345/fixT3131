@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="formSearchCustomerName" class="col-sm-3 control-label form-label">Name</label>
+                                <label for="formSearchCustomerName" class="col-sm-3 control-label form-label">Company Name</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" name="customer_name" value="<?php echo ( isset($data['conditions']['customer_name']) ) ? $data['conditions']['customer_name'] : ''; ?>">
                                 </div>
@@ -84,7 +84,7 @@
                         <thead>
                         <tr>
                             <th class="text-center"><input type="checkbox" id="checkAllCustomer" name=""></th>
-                            <th class="text-center">Name</th>
+                            <th class="text-center">Company Name</th>
                             <th class="text-center">Full name</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Last sent email</th>

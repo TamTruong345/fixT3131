@@ -78,10 +78,10 @@ class Customer extends Main {
 		$predicates = [];
 		$predicates[] = ['customer_deleted', '=', '0'];
 		if ($this->has($condition, 'customer_name')) {
-			$predicates[] = ['customer_name', '=', $condition['customer_name']];
+			$predicates[] = ['customer_name', 'LIKE', '%'.$condition['customer_name'].'%'];
 		}
 		if ($this->has($condition, 'customer_mail')) {
-			$predicates[] = ['customer_mail', '=', $condition['customer_mail']];
+			$predicates[] = ['customer_mail', 'LIKE', '%'.$condition['customer_mail'].'%'];
 		}
 		if ($this->has($condition, 'created_at_from')) {
 			$predicates[] = ['created_at', '>=', $this->date_format($condition['created_at_from'])];

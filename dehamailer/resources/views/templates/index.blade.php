@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label for="modalAddTemplateContent" class="col-sm-3 control-label">Content</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="template_content" id="modalAddTemplateContent" rows="10">Dear [FULLNAME]</textarea>
+                                <textarea class="form-control text-left" name="template_content" id="modalAddTemplateContent" rows="10">[COMPANY]&#13;&#10;[FULLNAME]</textarea>
                             </div>
                         </div>
                         <div class="form-group">
