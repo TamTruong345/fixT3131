@@ -8,7 +8,6 @@ use App\Models\Mailer;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Models\Customer;
-use Log;
 
 class MailController extends Controller
 {
@@ -48,8 +47,6 @@ class MailController extends Controller
 					'customer_last_sent_mail' => date('Y-m-d H:i:s')
 				]
 			);
-
-			Log::info('Customer '.$mail['mail_customer_full_name'].' is sent mail at '.date('Y-m-d H:i:s'));
 		}
 	}
 
