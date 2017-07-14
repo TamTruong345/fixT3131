@@ -73,7 +73,7 @@
         <!-- End panel -->
         <div class="m-b-1 pull-right">
             <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#sendMailModal">Send Mail</a>
-            <a href="#" class="btn btn-success">Import</a>
+            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#importCustomerModal">Import</a>
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addCustomerModal">Add</a>
         </div>
         <div class="clearfix"></div>
@@ -238,5 +238,36 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="importCustomerModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Import customer</h4>
+                </div>
+                <form class="form-horizontal" action="/import_customer" id="formImport" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <div class="modal-content">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control" name="file_import">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <script type="text/javascript" src="{{ URL::asset('js/customer.js') }}"></script>
 @endsection

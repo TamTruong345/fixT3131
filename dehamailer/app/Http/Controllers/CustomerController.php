@@ -108,4 +108,71 @@ class CustomerController extends Controller
 		}
 		return redirect()->route('customer.index');
 	}
+
+	/**
+	 * Import customer
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|string
+	 */
+	public function import() {
+		if (!$this->isValidFileUpload()) {
+			return '';
+		}
+		$this->request->file('file_import')->move(
+			base_path() . '/public/uploads/customers/', date('YmdHis').".csv"
+		);
+		$path = public_path("/uploads/customers/".date('YmdHis').".csv");
+		$data = $this->getDataCsv($path);
+		if (!empty($data)) {
+			Customer::addMultiRecord();
+			flash('Import customer success!')->success();
+		} else {
+			flash('Import customer fail!')->error();
+		}
+		return redirect()->route('customer.index');
+	}
+
+	/**
+	 * Validate file upload
+	 *
+	 * @return boolean
+	 */
+	private function isValidFileUpload() {
+		if ( !$this->request->hasFile('file_import') ) {
+			return false;
+		}
+		if ( !$this->request->file('file_import')->isValid() ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Get Data in file csv import
+	 *
+	 * @param $path
+	 * @return array
+	 */
+	public function getDataCsv($path)
+	{
+		$file = fopen($path, "r");
+
+		while (!feof($file)) {
+			$line[] = fgetcsv($file);
+		}
+		$customers = [];
+		$date = date('Y-m-d H:i:s');
+		foreach ($line as $item) {
+			if (!empty($item[2])) {
+				$customers[] = [
+					'customer_name' => $item[0],
+					'customer_full_name' => $item[1],
+					'customer_mail' => $item[2],
+					'created_at' => $date,
+					'customer_deleted' => 0
+				];
+			}
+		}
+		return $customers;
+	}
 }
