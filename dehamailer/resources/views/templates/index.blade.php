@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <h4>Template</h4>
         <ol class="breadcrumb no-bg m-b-1">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active">Template</li>
         </ol>
         <!-- End panel -->

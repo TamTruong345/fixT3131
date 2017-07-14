@@ -59,7 +59,7 @@
         <div class="site-header">
             <nav class="navbar navbar-light">
                 <div class="navbar-left">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/">
                         <div class="logo"></div>
                     </a>
                     <div class="toggle-button dark sidebar-toggle-first pull-xs-left hidden-md-up">
