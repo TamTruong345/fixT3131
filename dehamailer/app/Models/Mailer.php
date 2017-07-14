@@ -21,7 +21,7 @@ class Mailer extends Main {
 		$mails = [];
 		foreach ($customers as $cus) {
 			$tmp_template = $template;
-			$tmp_template['template_content'] = str_replace('[NAME]', $cus['customer_name'], $tmp_template['template_content']);
+			$tmp_template['template_content'] = str_replace('[COMPANY]', $cus['customer_name'], $tmp_template['template_content']);
 			$tmp_template['template_content'] = str_replace('[FULLNAME]', $cus['customer_full_name'], $tmp_template['template_content']);
 			$mails[] = [
 				'created_at' => date('Y-m-d H:i:s'),
