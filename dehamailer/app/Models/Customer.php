@@ -37,6 +37,15 @@ class Customer extends Main {
 	}
 
 	/**
+	 * Add multi record into customer table
+	 *
+	 * @param array Data import
+	 */
+	protected function addMultiRecord($data) {
+		return $this->insert($data);
+	}
+
+	/**
 	 * Delete item of customers table
 	 *
 	 * @param int customer_id
@@ -90,10 +99,10 @@ class Customer extends Main {
 			$predicates[] = ['created_at', '<=', $this->date_format($condition['created_at_to'])];
 		}
 		if ($this->has($condition, 'customer_last_sent_mail_from')) {
-			$predicates[] = ['customer_last_sent_mail', '>=', $this->date_format($condition['customer_last_sent_mail_from'])];
+			$predicates[] = ['customer_last_sent_mail', '<=', $this->date_format($condition['customer_last_sent_mail_from'])];
 		}
 		if ($this->has($condition, 'customer_last_sent_mail_to')) {
-			$predicates[] = ['customer_last_sent_mail', '<=', $this->date_format($condition['customer_last_sent_mail_to'])];
+			$predicates[] = ['customer_last_sent_mail', '>=', $this->date_format($condition['customer_last_sent_mail_to'])];
 		}
 		
 		return $predicates;

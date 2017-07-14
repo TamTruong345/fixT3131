@@ -25,6 +25,8 @@ Route::get('/customer/reset', 'CustomerController@reset');
 
 Route::post('/create_mail', 'CustomerController@create_mail');
 
+Route::post('/import_customer', 'CustomerController@import');
+
 Route::resource('customer', 'CustomerController');
 
 Route::resource('setting', 'SettingController');
