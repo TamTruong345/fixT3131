@@ -71,7 +71,7 @@
             </div>
         </div>
         <!-- End panel -->
-        <div class="m-b-1 pull-right">
+        <div class="m-b-1 pull-left">
             <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#sendMailModal">Send Mail</a>
             <a href="#" class="btn btn-success">Import</a>
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addCustomerModal">Add</a>
