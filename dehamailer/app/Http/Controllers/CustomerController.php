@@ -124,7 +124,7 @@ class CustomerController extends Controller
 		$path = public_path("/uploads/customers/".date('YmdHis').".csv");
 		$data = $this->getDataCsv($path);
 		if (!empty($data)) {
-			Customer::addMultiRecord();
+			Customer::addMultiRecord($data);
 			flash('Import customer success!')->success();
 		} else {
 			flash('Import customer fail!')->error();
