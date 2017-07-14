@@ -71,7 +71,12 @@ class Template extends Main {
 	 * @return mixed
 	 */
 	protected function fetchAll() {
-		return $this->where('template_deleted', 0)->get();
+		return $this->where(
+			[
+				'template_deleted' => 0,
+				'template_status' => 'active'
+			]
+		)->get();
 	}
 }
 

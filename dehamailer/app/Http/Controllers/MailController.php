@@ -56,7 +56,7 @@ class MailController extends Controller
 	 * @param $time
 	 */
 	private function editMailSent($time) {
-		if ($time >= 070000 && $time <= 070500) {
+		if ($time == 070000) {
 			Setting::updateMailSent(0);
 		}
 	}
