@@ -20,7 +20,7 @@ class Customer extends Main {
 		$condition = $this->removeItemIsEmpty($condition);
 		$condition = $this->makeConditionSearchForCustomer($condition);
 		return $query = $this->where($condition)
-					->paginate(10);
+					->paginate(50);
 	}
 
 	/**
