@@ -33,7 +33,12 @@ class MailController extends Controller
 		if ($setting['mail_sent'] <= $setting['setting_mail_per_day']) {
 			Mail::send('emails.welcome', $mail, function ($message) use ($mail) {
 				$message->to($mail['mail_customer_mail'])->subject($mail['mail_template_subject']);
-				$message->cc($mail['mail_template_mail_cc']);
+				if (!empty($mail['mail_template_mail_cc'])) {
+					$cc_mail = explode(',', $mail['mail_template_mail_cc']);
+					foreach ($cc_mail as $cc) {
+						$message->cc(trim($cc));
+					}
+				}
 				if (!empty($mail['mail_template_attachment'])) {
 					$message->attach($mail['mail_template_attachment']);
 				}
