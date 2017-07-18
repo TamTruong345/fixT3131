@@ -22,13 +22,6 @@ class DropColumnIntoSettingTable extends Migration
             $table->dropColumn('setting_from_name');
             $table->dropColumn('mail_sent');
         });
-
-        Schema::table('senders', function($table) {
-            $table->dropColumn('sender_host');
-            $table->dropColumn('sender_port');
-            $table->dropColumn('sender_driver');
-            $table->dropColumn('sender_encryption');
-        });
     }
 
     /**
