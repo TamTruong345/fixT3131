@@ -33,6 +33,7 @@
                             <th class="text-center" style="width: 110px">Attachment</th>
                             <th class="text-center" style="width: 300px">Mail CC</th>
                             <th class="text-center" style="width: 110px">Active</th>
+                            <th class="text-center" style="width: 110px">Creator</th>
                             <th style="width: 150px"></th>
                         </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                     <td class="text-center"><input type="checkbox" name="templates_attachment" <?php echo ( empty($tpl->template_attachment) )? '' : 'checked' ?>></td>
                                     <td>{{ $tpl->template_mail_cc }}</td>
                                     <td class="text-center"><input type="checkbox" name="templates_status" <?php echo ( $tpl->template_status == 'active' )? 'checked' : '' ?>></td>
+                                    <td>{{ $tpl->template_creator }}</td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-info" onclick="openModalEditTemplate({{ $tpl->template_id }})"><i class="fa fa-pencil-square-o visible-xs"></i><span class="hidden-xs">Edit</span></a>
                                         <a href="#" class="btn btn-danger" onclick="deleteTemplate({{ $tpl->template_id }})"><i class="fa fa-trash visible-xs"></i><span class="hidden-xs">Delete</span></a>
@@ -99,6 +101,12 @@
                             <div class="col-sm-9">
                                 <input type="radio" name="template_status" value="active" checked="true"> Yes
                                 <input type="radio" name="template_status" value="unactive"> No
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalAddTemplateCreator" class="col-sm-3 control-label">Creator</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="template_creator" id="modalAddTemplateCreator">
                             </div>
                         </div>
                     </div>
@@ -162,6 +170,12 @@
                                 <input type="hidden" class="form-control" name="template_id" id="modalEditTemplateId">
                                 <input type="radio" name="template_status" id="modalEditTemplateStatus1" value="active"> Yes
                                 <input type="radio" name="template_status" id="modalEditTemplateStatus2" value="unactive"> No
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalEditTemplateCreator" class="col-sm-3 control-label">Creator</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="template_creator" id="modalEditTemplateCreator">
                             </div>
                         </div>
                     </div>
