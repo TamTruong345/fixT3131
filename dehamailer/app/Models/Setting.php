@@ -29,8 +29,6 @@ class Setting extends Main {
 			'encryption' => $setting['setting_encryption'],
 			'username' => $mail['mail_sender_username'],
 			'password' => $mail['mail_sender_password'],
-			'sendmail' => '/usr/sbin/sendmail -bs',
-			'pretend' => false
 		];
 		Config::set('mail', $configMail);
 	}
