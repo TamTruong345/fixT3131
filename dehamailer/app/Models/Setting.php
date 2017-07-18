@@ -43,13 +43,6 @@ class Setting extends Main {
 	}
 
 	/**
-	 * Edit mail sent
-	 */
-	protected function updateMailSent($number) {
-		$this->where('setting_deleted', 0)->update(['mail_sent' => $number]);
-	}
-
-	/**
 	 * Edit a record with by id
 	 *
 	 * @param $data

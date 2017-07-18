@@ -17,7 +17,7 @@ class Sender extends Main {
 	 * @return array Response
 	 */
 	protected function fetchAll() {
-		return $this->where('sender_deleted', '=', 0)->paginate(50);
+		return $this->where('sender_deleted', '=', 0)->get();
 	}
 	
 	/**
@@ -67,6 +67,23 @@ class Sender extends Main {
 	protected function deleteSender($sender_id) {
 		$this->where('sender_id', $sender_id)
 			->update(['sender_deleted' => 1]);
+	}
+
+	/**
+	 * Edit mail sent
+	 */
+	protected function updateMailSent($sender_id, $number) {
+		$this->where('sender_id', $sender_id)->update(['sender_mail_sent' => $number]);
+	}
+
+	/**
+	 * Edit total mail sent of senders
+	 *
+	 * @param $sender_id
+	 * @param $number
+	 */
+	protected function updateAllMailSent($number) {
+		$this->where('sender_deleted', 0)->update(['sender_mail_sent' => $number]);
 	}
 }
 

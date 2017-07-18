@@ -34,6 +34,7 @@ class Mailer extends Main {
 				'mail_template_content' => $tmp_template['template_content'],
 				'mail_template_attachment' => $tmp_template['template_attachment'],
 				'mail_template_mail_cc' => $tmp_template['template_mail_cc'],
+				'mail_sender_id' => $sender['sender_id'],
 				'mail_sender_username' => $sender['sender_username'],
 				'mail_sender_password' => $sender['sender_password'],
 				'mail_sender_from_name' => $sender['sender_from_name'],
