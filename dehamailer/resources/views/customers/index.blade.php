@@ -124,7 +124,7 @@
     </div>
     <!-- Send mail modal -->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="sendMailModal">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -136,19 +136,19 @@
                 <form class="form-horizontal">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="sel1" class="col-sm-4 control-label">Template mail:</label>
-                            <div class="col-sm-8">
+                            <label for="sel1" class="col-sm-3 control-label">Template mail:</label>
+                            <div class="col-sm-9">
                                 <select class="form-control" id="selTemplate">
                                     <option>-------choose------</option>
                                     @foreach($data['templates'] as $temp)
-                                        <option value="{{ $temp['template_id'] }}">{{ $temp['template_subject'] }}</option>
+                                        <option value="{{ $temp['template_id'] }}">{{ $temp['template_subject'] }} ({{ $temp['template_creator'] }})</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="sel1" class="col-sm-4 control-label">Sender:</label>
-                            <div class="col-sm-8">
+                            <label for="sel1" class="col-sm-3 control-label">Sender:</label>
+                            <div class="col-sm-9">
                                 <select class="form-control" id="selSender">
                                     @foreach($data['senders'] as $sender)
                                         <option value="{{ $sender['sender_id'] }}">{{ $sender['sender_username'] }}</option>

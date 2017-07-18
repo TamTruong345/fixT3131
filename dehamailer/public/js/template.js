@@ -32,6 +32,7 @@ function openModalEditTemplate(template_id) {
             $('#modalEditTemplateContent').val(data.template_content);
             $('#modalEditTemplateAttachmentOld').val(data.template_attachment);
             $('#modalEditTemplateMailCC').val(data.template_mail_cc);
+            $('#modalEditTemplateCreator').val(data.template_creator);
             if (data.template_status == 'active') {
                 $('#modalEditTemplateStatus1').attr('checked', true);
             } else {
