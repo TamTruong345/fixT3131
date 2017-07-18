@@ -100,7 +100,7 @@ class CustomerController extends Controller
 	 */
 	public function create_mail() {
 		$data = $this->request->toArray();
-		if ( isset($data['customers']) ) {
+		if ( isset($data['customers']) && $data['template_id'] != 0 ) {
 			$customers = Customer::searchCustomerById($data['customers'])->toArray();
 			$template = Template::fetchOne($data['template_id'])->toArray();
 			$sender = Sender::fetchOne($data['sender_id']);
