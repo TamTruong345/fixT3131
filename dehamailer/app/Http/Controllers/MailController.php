@@ -33,22 +33,19 @@ class MailController extends Controller
 		Setting::settingMail($setting, $mail);
 
 		if ($setting['mail_sent'] <= $setting['setting_mail_per_day']) {
-			try {
-				Mail::send('emails.welcome', $mail, function ($message) use ($mail) {
-					$message->to($mail['mail_customer_mail'])->subject($mail['mail_template_subject']);
-					if (!empty($mail['mail_template_mail_cc'])) {
-						$cc_mail = explode(',', $mail['mail_template_mail_cc']);
-						foreach ($cc_mail as $cc) {
-							$message->cc(trim($cc));
-						}
+			Mailer::updateStatusMail($mail['mail_id'], 3);
+			Mail::send('emails.welcome', $mail, function ($message) use ($mail) {
+				$message->to($mail['mail_customer_mail'])->subject($mail['mail_template_subject']);
+				if (!empty($mail['mail_template_mail_cc'])) {
+					$cc_mail = explode(',', $mail['mail_template_mail_cc']);
+					foreach ($cc_mail as $cc) {
+						$message->cc(trim($cc));
 					}
-					if (!empty($mail['mail_template_attachment'])) {
-						$message->attach($mail['mail_template_attachment']);
-					}
-				});
-			}catch (Exception $e) {
-				Mailer::updateStatusMail($mail['mail_id'], 3);
-			}
+				}
+				if (!empty($mail['mail_template_attachment'])) {
+					$message->attach($mail['mail_template_attachment']);
+				}
+			});
 
 			Mailer::updateStatusMail($mail['mail_id'], 1);
 			Setting::updateMailSent($setting['mail_sent'] + 1);
