@@ -139,7 +139,7 @@
                             <label for="sel1" class="col-sm-3 control-label">Template mail:</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="selTemplate">
-                                    <option>-------choose------</option>
+                                    <option value="0">-------choose------</option>
                                     @foreach($data['templates'] as $temp)
                                         <option value="{{ $temp['template_id'] }}">{{ $temp['template_subject'] }} ({{ $temp['template_creator'] }})</option>
                                     @endforeach
@@ -148,7 +148,7 @@
                         </div>
                         <div class="form-group">
                             <label for="sel1" class="col-sm-3 control-label">Sender:</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 <select class="form-control" id="selSender">
                                     @foreach($data['senders'] as $sender)
                                         <option value="{{ $sender['sender_id'] }}">{{ $sender['sender_username'] }}</option>
