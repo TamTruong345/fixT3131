@@ -17,7 +17,7 @@ class Template extends Main {
      * @return array Response
      */
     protected function getList() {
-        return $this->where('template_deleted', '=', 0)->paginate(10);
+        return $this->where('template_deleted', '=', 0)->paginate(50);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Template;
 use App\Models\Mailer;
+use App\Models\Sender;
 use Illuminate\Http\Request;
 use App\Http\Flash;
 
@@ -29,6 +30,7 @@ class CustomerController extends Controller
 		}
 		$data['customers'] = Customer::getList($data ['conditions']);
 		$data['templates'] = Template::fetchAll();
+		$data['senders'] = Sender::fetchAll();
 		return view('customers.index', array('data' => $data));
 	}
 	
@@ -101,7 +103,8 @@ class CustomerController extends Controller
 		if ( isset($data['customers']) ) {
 			$customers = Customer::searchCustomerById($data['customers'])->toArray();
 			$template = Template::fetchOne($data['template_id'])->toArray();
-			Mailer::create_mail($customers, $template);
+			$sender = Sender::fetchOne($data['sender_id']);
+			Mailer::create_mail($customers, $template, $sender);
 			flash('Create mail success!')->success();
 		} else {
 			flash('Create mail fail!')->error();

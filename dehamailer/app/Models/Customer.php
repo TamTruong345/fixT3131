@@ -20,6 +20,7 @@ class Customer extends Main {
 		$condition = $this->removeItemIsEmpty($condition);
 		$condition = $this->makeConditionSearchForCustomer($condition);
 		return $query = $this->where($condition)
+					->orderBy('customer_id', 'desc')
 					->paginate(50);
 	}
 

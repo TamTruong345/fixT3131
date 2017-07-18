@@ -63,10 +63,12 @@ $("#checkAllCustomer").click(function(){
 
 function createMail() {
     $template_id = $('#selTemplate').val();
-    if ($template_id == '') {
+    $sender_id = $('#selSender').val();
+    if ($template_id == '' || $sender_id == '') {
         return false;
     } else {
         $('#template_id').val($template_id);
+        $('#sender_id').val($sender_id);
         $('#formCreateMail').submit();
     }
 }

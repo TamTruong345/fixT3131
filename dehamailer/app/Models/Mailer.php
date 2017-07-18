@@ -17,7 +17,7 @@ class Mailer extends Main {
 	 * @param $customers
 	 * @param $template
 	 */
-	protected function create_mail($customers, $template) {
+	protected function create_mail($customers, $template, $sender) {
 		$mails = [];
 		foreach ($customers as $cus) {
 			$tmp_template = $template;
@@ -34,6 +34,9 @@ class Mailer extends Main {
 				'mail_template_content' => $tmp_template['template_content'],
 				'mail_template_attachment' => $tmp_template['template_attachment'],
 				'mail_template_mail_cc' => $tmp_template['template_mail_cc'],
+				'mail_sender_username' => $sender['sender_username'],
+				'mail_sender_password' => $sender['sender_password'],
+				'mail_sender_from_name' => $sender['sender_from_name'],
 				'mail_status' => 0,
 			];
 		}
@@ -57,9 +60,9 @@ class Mailer extends Main {
 	 *
 	 * @param $mail_id
 	 */
-	protected function updateStatusMail($mail_id) {
+	protected function updateStatusMail($mail_id, $status) {
 		$this->where('mail_id', $mail_id)
-			->update(['mail_status' => 1]);
+			->update(['mail_status' => $status]);
 	}
 }
 
