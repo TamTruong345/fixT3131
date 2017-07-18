@@ -17,15 +17,22 @@ class Setting extends Main {
 	 *
 	 * @param array setting
 	 */
-	protected function settingMail($setting) {
-		Config::set('mail.driver', $setting['setting_driver']);
-		Config::set('mail.host', $setting['setting_host']);
-		Config::set('mail.port', $setting['setting_port']);
-		Config::set('mail.from.address', $setting['setting_username']);
-		Config::set('mail.from.name', $setting['setting_from_name']);
-		Config::set('mail.encryption', $setting['setting_encryption']);
-		Config::set('mail.username', $setting['setting_username']);
-		Config::set('mail.password', $setting['setting_password']);
+	protected function settingMail($setting, $mail) {
+		$configMail = [
+			'driver' => $setting['setting_driver'],
+			'host' => $setting['setting_host'],
+			'port' => $setting['setting_port'],
+			'from' => [
+				'address' => $mail['mail_sender_username'],
+				'name' => $mail['mail_sender_from_name']
+			],
+			'encryption' => $setting['setting_encryption'],
+			'username' => $mail['mail_sender_username'],
+			'password' => $mail['mail_sender_password'],
+			'sendmail' => '/usr/sbin/sendmail -bs',
+			'pretend' => false
+		];
+		Config::set('mail', $configMail);
 	}
 
 	/**
@@ -42,6 +49,18 @@ class Setting extends Main {
 	 */
 	protected function updateMailSent($number) {
 		$this->where('setting_deleted', 0)->update(['mail_sent' => $number]);
+	}
+
+	/**
+	 * Edit a record with by id
+	 *
+	 * @param $data
+	 */
+	protected function editRecord($data) {
+		unset($data['_token']);
+		$data['updated_at'] = date('Y-m-d H:i:s');
+		$this->where('setting_id', $data['setting_id'])
+			->update($data);
 	}
 }
 

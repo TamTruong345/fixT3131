@@ -8,6 +8,8 @@ use App\Models\Mailer;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Models\Customer;
+use Config;
+use App;
 
 class MailController extends Controller
 {
@@ -28,9 +30,10 @@ class MailController extends Controller
 	public function send_mail() {
 		$mail = Mailer::getFirstList();
 		$setting = Setting::fetchOne();
-		Setting::settingMail($setting);
+		Setting::settingMail($setting, $mail);
 
 		if ($setting['mail_sent'] <= $setting['setting_mail_per_day']) {
+			Mailer::updateStatusMail($mail['mail_id'], 3);
 			Mail::send('emails.welcome', $mail, function ($message) use ($mail) {
 				$message->to($mail['mail_customer_mail'])->subject($mail['mail_template_subject']);
 				if (!empty($mail['mail_template_mail_cc'])) {
@@ -44,7 +47,7 @@ class MailController extends Controller
 				}
 			});
 
-			Mailer::updateStatusMail($mail['mail_id']);
+			Mailer::updateStatusMail($mail['mail_id'], 1);
 			Setting::updateMailSent($setting['mail_sent'] + 1);
 			Customer::editRecord(
 				[

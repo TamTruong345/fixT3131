@@ -29,6 +29,12 @@ Route::post('/import_customer', 'CustomerController@import');
 
 Route::resource('customer', 'CustomerController');
 
+Route::post('/setting/update', 'SettingController@update');
+
 Route::resource('setting', 'SettingController');
 
 Route::get('/send_mail', 'MailController@send_mail');
+
+Route::post('/sender/update', 'SenderController@update');
+
+Route::resource('sender', 'SenderController');

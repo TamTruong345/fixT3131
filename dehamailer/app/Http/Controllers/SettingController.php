@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\DB;
+use Mail;
+use App\Http\Flash;
+use Illuminate\Http\Request;
+use App\Models\Setting;
+use App\Models\Sender;
 
 class SettingController extends Controller
 {
@@ -15,7 +15,28 @@ class SettingController extends Controller
 	 *
 	 * @return Response
 	 */
+
+	protected $request;
+	public function __construct(Request $request)
+	{
+		$this->request = $request;
+	}
+
 	public function index() {
-		return view('setting');
+		$data['settings'] = Setting::fetchOne();
+		$data['senders'] = Sender::fetchAll();
+		return view('setting', array('data' => $data));
+	}
+
+	/**
+	 * edit setting
+	 *
+	 * @return Response
+	 */
+	public function update() {
+		$data = $this->request->toArray();
+		Setting::editRecord($data);
+		flash('Edit setting success!');
+		return redirect()->route('setting.index');
 	}
 }

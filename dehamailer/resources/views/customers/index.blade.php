@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Mail</label>
                                 <div class="col-sm-9">
-                                    <input type="email" class="form-control" name="customer_mail" value="<?php echo ( isset($data['conditions']['customer_mail']) ) ? $data['conditions']['customer_mail'] : ''; ?>">
+                                    <input type="text" class="form-control" name="customer_mail" value="<?php echo ( isset($data['conditions']['customer_mail']) ) ? $data['conditions']['customer_mail'] : ''; ?>">
                                 </div>
                             </div>
                         </div>
@@ -108,6 +108,7 @@
                             @endforeach
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="template_id" id="template_id" value=""/>
+                                <input type="hidden" name="sender_id" id="sender_id" value=""/>
                         </form>
                         </tbody>
                     </table>
@@ -139,6 +140,16 @@
                                     <option>-------choose------</option>
                                     @foreach($data['templates'] as $temp)
                                         <option value="{{ $temp['template_id'] }}">{{ $temp['template_subject'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1" class="col-sm-4 control-label">Sender:</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="selSender">
+                                    @foreach($data['senders'] as $sender)
+                                        <option value="{{ $sender['sender_id'] }}">{{ $sender['sender_username'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
