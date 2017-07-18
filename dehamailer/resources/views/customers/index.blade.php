@@ -89,6 +89,7 @@
                             <th class="text-center">Email</th>
                             <th class="text-center">Last sent email</th>
                             <th class="text-center">Created date</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center" style="width: 150px;"></th>
                         </tr>
                         </thead>
@@ -102,6 +103,7 @@
                                     <td>{{ $cus->customer_mail }}</td>
                                     <td>{{ $cus->customer_last_sent_mail }}</td>
                                     <td>{{ $cus->created_at }}</td>
+                                    <td class="text-center"><?php if ($cus->customer_mail_status == 'sending'){ ?><span class="s-icon"><i class="ti-email"></i></span><?php } ?></td>
                                     <td class="text-center"><a href="#" class="btn btn-info" onclick="openModalEditTemplate({{ $cus->customer_id }})"><i class="fa fa-pencil-square-o visible-xs"></i><span class="hidden-xs">Edit</span></a>
                                         <a href="#" class="btn btn-danger" onclick="deleteTemplate({{ $cus->customer_id }})"><i class="fa fa-trash visible-xs"></i><span class="hidden-xs">Delete</span></a></td>
                                 </tr>

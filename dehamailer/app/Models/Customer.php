@@ -134,6 +134,17 @@ class Customer extends Main {
 		}
 		return $customers;
 	}
+
+	/**
+	 * Edit status send mail of customer
+	 * 
+	 * @param $data
+	 */
+	protected function updateStatusSendMail($data) {
+		$customers = $this->setArrayCustomerId($data);
+		$this->whereIn('customer_id', $customers)
+			->update(['customer_mail_status' => 'sending']);
+	}
 }
 
 ?>

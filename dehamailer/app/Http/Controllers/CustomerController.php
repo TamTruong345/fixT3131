@@ -105,6 +105,7 @@ class CustomerController extends Controller
 			$template = Template::fetchOne($data['template_id'])->toArray();
 			$sender = Sender::fetchOne($data['sender_id']);
 			Mailer::create_mail($customers, $template, $sender);
+			Customer::updateStatusSendMail($data['customers']);
 			flash('Create mail success!')->success();
 		} else {
 			flash('Create mail fail!')->error();

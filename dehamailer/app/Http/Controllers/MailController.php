@@ -52,7 +52,8 @@ class MailController extends Controller
 			Customer::editRecord(
 				[
 					'customer_id' => $mail['mail_customer_id'],
-					'customer_last_sent_mail' => date('Y-m-d H:i:s')
+					'customer_last_sent_mail' => date('Y-m-d H:i:s'),
+					'customer_mail_status' => null
 				]
 			);
 		}
