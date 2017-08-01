@@ -65,7 +65,7 @@ class MailController extends Controller
 	 * @param $time
 	 */
 	private function editMailSent($time) {
-		if ($time == 070000) {
+		if ($time >= 70000 && $time <= 70059) {
 			Sender::updateAllMailSent(0);
 		}
 	}
