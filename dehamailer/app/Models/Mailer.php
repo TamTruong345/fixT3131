@@ -65,6 +65,16 @@ class Mailer extends Main {
 		$this->where('mail_id', $mail_id)
 			->update(['mail_status' => $status]);
 	}
+
+	/**
+	 * Edit all status
+	 * 
+	 * @param $status
+	 */
+	protected function updateAllStatus($status) {
+		$this->where('mail_status', 4)
+			->update(['mail_status' => $status]);
+	}
 }
 
 ?>

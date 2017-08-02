@@ -8,6 +8,7 @@ use App\Models\Mailer;
 use App\Models\Sender;
 use Illuminate\Http\Request;
 use App\Http\Flash;
+use Excel, Input;
 
 class CustomerController extends Controller
 {
@@ -119,64 +120,28 @@ class CustomerController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|string
 	 */
 	public function import() {
-		if (!$this->isValidFileUpload()) {
-			return '';
-		}
-		$this->request->file('file_import')->move(
-			base_path() . '/public/uploads/customers/', date('YmdHis').".csv"
-		);
-		$path = public_path("/uploads/customers/".date('YmdHis').".csv");
-		$data = $this->getDataCsv($path);
-		if (!empty($data)) {
-			Customer::addMultiRecord($data);
-			flash('Import customer success!')->success();
-		} else {
-			flash('Import customer fail!')->error();
-		}
-		return redirect()->route('customer.index');
-	}
-
-	/**
-	 * Validate file upload
-	 *
-	 * @return boolean
-	 */
-	private function isValidFileUpload() {
-		if ( !$this->request->hasFile('file_import') ) {
-			return false;
-		}
-		if ( !$this->request->file('file_import')->isValid() ) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Get Data in file csv import
-	 *
-	 * @param $path
-	 * @return array
-	 */
-	public function getDataCsv($path)
-	{
-		$file = fopen($path, "r");
-
-		while (!feof($file)) {
-			$line[] = fgetcsv($file);
-		}
+		$created_at = date('Y-m-d H:i:s');
 		$customers = [];
-		$date = date('Y-m-d H:i:s');
-		foreach ($line as $item) {
-			if (!empty($item[2])) {
+		$data = Excel::selectSheets('customers')->load(Input::file('file_import'), function($reader) {
+		})->get(array('company', 'customer', 'email'));
+		foreach ($data->toArray() as $key => $val) {
+			if ( !empty($val['email']) ) {
 				$customers[] = [
-					'customer_name' => $item[0],
-					'customer_full_name' => $item[1],
-					'customer_mail' => $item[2],
-					'created_at' => $date,
+					'customer_name' => $val['company'],
+					'customer_full_name' => $val['customer'],
+					'customer_mail' => $val['email'],
+					'created_at' => $created_at,
 					'customer_deleted' => 0
 				];
 			}
 		}
-		return $customers;
+		try {
+			Customer::addMultiRecord($customers);
+		} catch (\Exception $e) {
+			flash('登録が失敗しました。')->error();
+			return redirect()->route('customer.index');
+		}
+		flash('登録が完了しました。')->success();
+		return redirect()->route('customer.index');
 	}
 }

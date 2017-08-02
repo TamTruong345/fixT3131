@@ -18,6 +18,7 @@ class MailController extends Controller
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 		$time = date('His');
 		$this->request = $request;
+		$this->editStatusMail($time);
 		$this->editMailSent($time);
 	}
 
@@ -31,6 +32,7 @@ class MailController extends Controller
 		$setting = Setting::fetchOne();
 		Setting::settingMail($setting, $mail);
 		$sender = Sender::fetchOne($mail['mail_sender_id']);
+		Mailer::updateStatusMail($mail['mail_id'], 4);
 
 		if ($sender['sender_mail_sent'] <= $setting['setting_mail_per_day']) {
 			Mailer::updateStatusMail($mail['mail_id'], 3);
@@ -67,6 +69,16 @@ class MailController extends Controller
 	private function editMailSent($time) {
 		if ($time >= 70000 && $time <= 70059) {
 			Sender::updateAllMailSent(0);
+		}
+	}
+
+	/**
+	 * Edit status mail send
+	 * @param $time
+	 */
+	private function editStatusMail($time) {
+		if ($time >= 65900 && $time <= 65959) {
+			Mailer::updateAllStatus(0);
 		}
 	}
 }
