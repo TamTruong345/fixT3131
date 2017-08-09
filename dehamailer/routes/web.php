@@ -38,3 +38,7 @@ Route::get('/send_mail', 'MailController@send_mail');
 Route::post('/sender/update', 'SenderController@update');
 
 Route::resource('sender', 'SenderController');
+
+
+
+Route::get('project','ProjectController@index');
