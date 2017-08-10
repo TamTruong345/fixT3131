@@ -120,19 +120,29 @@ class CustomerController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|string
 	 */
 	public function import() {
+		$success = 0;
+		$fail = 0;
 		$created_at = date('Y-m-d H:i:s');
 		$customers = [];
 		$data = Excel::selectSheets('customers')->load(Input::file('file_import'), function($reader) {
 		})->get(array('company', 'customer', 'email'));
 		foreach ($data->toArray() as $key => $val) {
 			if ( !empty($val['email']) ) {
-				$customers[] = [
-					'customer_name' => $val['company'],
-					'customer_full_name' => $val['customer'],
-					'customer_mail' => $val['email'],
-					'created_at' => $created_at,
-					'customer_deleted' => 0
-				];
+				$emails = Customer::checkEmailExist($val['email']);
+				if (empty($emails)) {
+					$customers[] = [
+						'customer_name' => $val['company'],
+						'customer_full_name' => $val['customer'],
+						'customer_mail' => $val['email'],
+						'created_at' => $created_at,
+						'customer_deleted' => 0
+					];
+					$success += 1;
+				} else {
+					$fail += 1;
+				}
+			} else {
+				$fail += 1;
 			}
 		}
 		try {
@@ -141,7 +151,7 @@ class CustomerController extends Controller
 			flash('登録が失敗しました。')->error();
 			return redirect()->route('customer.index');
 		}
-		flash('登録が完了しました。')->success();
+		flash("success: $success, fail: $fail")->success();
 		return redirect()->route('customer.index');
 	}
 }
