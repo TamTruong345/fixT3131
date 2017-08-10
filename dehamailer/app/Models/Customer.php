@@ -79,6 +79,16 @@ class Customer extends Main {
 	}
 
 	/**
+	 * Search customer by email
+	 *
+	 * @param int customer_mail
+	 * @return array customer detail
+	 */
+	protected function checkEmailExist($customer_mail) {
+		return $this->where('customer_mail', $customer_mail)->get()->toArray();
+	}
+
+	/**
 	 * Make condition search for customer
 	 *
 	 * @param $condition
