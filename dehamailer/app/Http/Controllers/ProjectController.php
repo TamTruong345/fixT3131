@@ -26,51 +26,10 @@ class ProjectController extends Controller
             $data ['conditions'] = $this->request->session()->get('search_project');
         }
         $data['customers'] = Customer::fetchAll();
-        /*echo '<pre>';
-            print_r($data['customers']);
-        echo '</pre>';
-        die(0);*/
         $data['projects'] = Project::getList($data ['conditions']);
         return view('projects.index', array('data' => $data));
     }
-
-    /**
-     * Store a new customer
-     *
-     * @return Response
-     */
-    public function store() {
-
-    }
-
-    /**
-     * edit project
-     *
-     * @return Response
-     */
-    public function update() {
-
-    }
-
-    /**
-     * Destroy project
-     *
-     * @param int project_id
-     */
-    public function destroy() {
-
-    }
-
-    /**
-     * Get Project Detail
-     *
-     * @param int project_id
-     * @return json customer detail
-     */
-    public function show() {
-
-    }
-
+    
     /**
      * Set condition search
      */

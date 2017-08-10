@@ -156,7 +156,7 @@
             {!! $data['projects']->render() !!}
         </div>
 
-       
+
 
 <script type="text/javascript" src="{{ URL::asset('js/project.js') }}"></script>
 @endsection
