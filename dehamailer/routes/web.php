@@ -41,4 +41,7 @@ Route::resource('sender', 'SenderController');
 
 
 
-Route::get('project','ProjectController@index');
+Route::post('/project/search', 'ProjectController@search');
+Route::get('/project/reset', 'ProjectController@reset');
+
+Route::resource('project', 'ProjectController');

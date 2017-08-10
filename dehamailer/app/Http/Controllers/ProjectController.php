@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
+use App\Models\Customer;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -20,7 +21,17 @@ class ProjectController extends Controller
      */
 
     public function index() {
-        return view('projects.index');
+        $data = ['conditions' => []];
+        if ($this->request->session()->has('search_project')) {
+            $data ['conditions'] = $this->request->session()->get('search_project');
+        }
+        $data['customers'] = Customer::fetchAll();
+        /*echo '<pre>';
+            print_r($data['customers']);
+        echo '</pre>';
+        die(0);*/
+        $data['projects'] = Project::getList($data ['conditions']);
+        return view('projects.index', array('data' => $data));
     }
 
     /**
@@ -53,7 +64,7 @@ class ProjectController extends Controller
     /**
      * Get Project Detail
      *
-     * @param int customer_id
+     * @param int project_id
      * @return json customer detail
      */
     public function show() {
@@ -64,13 +75,18 @@ class ProjectController extends Controller
      * Set condition search
      */
     public function search() {
+        $condition = $this->request->toArray();
+        unset($condition['_token']);
+        $this->request->session()->put('search_project', $condition);
+        return redirect()->route('project.index');
     }
 
     /**
      * Reset condition search project
      */
     public function reset() {
-
+        $this->request->session()->forget('search_project');
     }
+
 
 }

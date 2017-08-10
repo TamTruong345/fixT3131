@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ URL::asset('css/waves/waves.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/jscrollpane/jquery.jscrollpane.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('css/select2.min.css') }}" />
+
     <!-- Neptune CSS -->
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" />
     <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,6 +27,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="{{ URL::asset('js/jquery-1.12.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/select2.min.js') }}"></script>
+
 </head>
 <body class="fixed-sidebar fixed-header content-appear skin-default">
     <div class="wrapper">
@@ -38,6 +42,12 @@
                         <a href="/customer" class="waves-effect  waves-light">
                             <span class="s-icon"><i class="ti-user"></i></span>
                             <span class="s-text">Customer</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/project" class="waves-effect  waves-light">
+                            <span class="s-icon"><i class="ti-paint-roller"></i></span>
+                            <span class="s-text">Project</span>
                         </a>
                     </li>
                     <li>
