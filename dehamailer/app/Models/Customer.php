@@ -155,6 +155,10 @@ class Customer extends Main {
 		$this->whereIn('customer_id', $customers)
 			->update(['customer_mail_status' => 'sending']);
 	}
+
+    protected function fetchAll() {
+        return $this->where('customer_deleted', 0)->get()->toArray();
+    }
 }
 
 ?>
