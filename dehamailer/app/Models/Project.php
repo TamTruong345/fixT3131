@@ -10,12 +10,13 @@ class Project extends Main
      * @var string
      */
     protected $table = 'projects';
-    protected $fillable = ['project_name', 'project_customer_name', 'project_member_name', 'project_status', 'project_money', 'project_last_memo', 'created_at', 'updated_at'];
     protected $primaryKey = 'project_id';
+
     /**
-     * Get a listing of customer with condition
+     * Add one record into customer table
      *
-     * @return array Response
+     * @param array Data import
+     * @return int customer_id
      */
     protected function getList($condition) {
         $condition = $this->removeItemIsEmpty($condition);
@@ -24,6 +25,7 @@ class Project extends Main
             ->orderBy('project_id', 'desc')
             ->paginate(20);
     }
+
     private function makeConditionSearchForProject($condition) {
         $predicates = [];
         $predicates[] = ['project_deleted', '=', '0'];
@@ -85,5 +87,20 @@ class Project extends Main
             ->update($data);
 
     }
+
+
+    /**
+     * Add one record into project table
+     *
+     * @param array Data import
+     * @return int project_id
+     */
+    protected function addNewRecord($data) {
+        unset($data['_token']);
+        $data['created_at'] = date('Y-m-d H:i:s');
+        $data['project_deleted'] = 0;
+        return $this->insertGetId($data);
+    }
+
 
 }

@@ -11,17 +11,17 @@ function deleteItem(project_id) {
                 window.location = "/project";
             },
             error: function (data) {
-                $('.loader').attr('style', 'none')
+                $('.loader').attr('style', 'none');
                 console.log(data);
             }
         });
     }
 }
 
-function loading() {
-    $('.loader').attr('style', 'block');
-}
 
+$(document).ready(function() {
+    $("#select2search ,.project-member-select2, #company_name_selec2,#member_name_selec2").select2();
+});
 function resetSearch() {
     $('.loader').attr('style', 'display: block');
     $.ajax({
@@ -76,4 +76,3 @@ function openModalEditProject(project_id) {
         }
     });
 }
-
