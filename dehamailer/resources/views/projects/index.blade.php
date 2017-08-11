@@ -149,7 +149,7 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $pro->project_status }}</td>
-                                    <td>{{ number_format($pro->project_money, 0, ',', '.') }}</td>
+                                    <td>{{ number_format($pro->project_money) }}</td>
                                     <td>{{ $pro->project_last_memo }}</td>
                                     <td>{{ $pro->created_at }}</td>
                                     <td>{{ $pro->updated_at }}</td>
