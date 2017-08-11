@@ -46,8 +46,8 @@
                     </li>
                     <li class="active">
                         <a href="/project" class="waves-effect  waves-light">
-                            <span class="s-icon"><i class="ti-paint-roller"></i></span>
-                            <span class="s-text">Project</span>
+                            <span class="s-icon"><i class="ti-agenda"></i></span>
+                            <span class="s-text">Projects</span>
                         </a>
                     </li>
                     <li>

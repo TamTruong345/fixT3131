@@ -11,12 +11,12 @@ function deleteTemplate(customer_id) {
                 window.location = "/customer";
             },
             error: function (data) {
-                $('.loader').attr('style', 'none')
+                $('.loader').attr('style', 'none');
                 console.log(data);
             }
         });
     }
-};
+}
 
 function loading() {
     $('.loader').attr('style', 'block');
@@ -35,7 +35,7 @@ function openModalEditTemplate(customer_id) {
             $('#modalEditCustomerName').val(data.customer_name);
             $('#modalEditCustomerFullName').val(data.customer_full_name);
             $('#modalEditCustomerMail').val(data.customer_mail);
-            $('.loader').attr('style', 'display: none')
+            $('.loader').attr('style', 'display: none');
             $('#editCustomerModal').modal('show');
         },
         error: function (data) {

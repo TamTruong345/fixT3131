@@ -10,12 +10,13 @@ class Project extends Main
      * @var string
      */
     protected $table = 'projects';
-    protected $fillable = ['project_name', 'project_customer_name', 'project_member_name', 'project_status', 'project_money', 'project_last_memo', 'created_at', 'updated_at'];
     protected $primaryKey = 'project_id';
+
     /**
-     * Get a listing of customer with condition
+     * Add one record into customer table
      *
-     * @return array Response
+     * @param array Data import
+     * @return int customer_id
      */
     protected function getList($condition) {
         $condition = $this->removeItemIsEmpty($condition);
@@ -24,6 +25,7 @@ class Project extends Main
             ->orderBy('project_id', 'desc')
             ->paginate(20);
     }
+
     private function makeConditionSearchForProject($condition) {
         $predicates = [];
         $predicates[] = ['project_deleted', '=', '0'];
@@ -31,10 +33,10 @@ class Project extends Main
             $predicates[] = ['project_name', 'LIKE', '%'.$condition['project_name'].'%'];
         }
         if ($this->has($condition, 'project_customer_name')) {
-            $predicates[] = ['project_customer_name', 'LIKE', '%'.$condition['project_customer_name'].'%'];
+            $predicates[] = ['project_customer_id', 'LIKE', '%'.$condition['project_customer_name'].'%'];
         }
         if ($this->has($condition, 'project_member_name')) {
-            $predicates[] = ['project_member_name', 'LIKE', '%'.$condition['project_member_name'].'%'];
+            $predicates[] = ['project_member_id', 'LIKE', '%'.$condition['project_member_name'].'%'];
         }
         if ($this->has($condition, 'project_status')) {
             $predicates[] = ['project_status', 'LIKE', '%'.$condition['project_status'].'%'];
@@ -53,4 +55,52 @@ class Project extends Main
         }
         return $predicates;
     }
+
+    /**
+     * Delete item of Project table
+     *
+     * @param int project_id
+     */
+    protected function deleteProject($project_id) {
+        $this->where('project_id', $project_id)->update(['project_deleted' => 1]);
+    }
+
+    /**
+     * Search project by id
+     *
+     * @param int project_id
+     * @return array project detail
+     */
+    protected function fetchOne($project_id) {
+        return $this->where('project_id', $project_id)->first();
+    }
+
+    /**
+     * Edit record of customers tables
+     *
+     * @param array data update
+     */
+    protected function editRecord($data) {
+        unset($data['_token']);
+        $data['updated_at'] = date('Y-m-d H:i:s');
+        $this->where('project_id', $data['project_id'])
+            ->update($data);
+
+    }
+
+
+    /**
+     * Add one record into project table
+     *
+     * @param array Data import
+     * @return int project_id
+     */
+    protected function addNewRecord($data) {
+        unset($data['_token']);
+        $data['created_at'] = date('Y-m-d H:i:s');
+        $data['project_deleted'] = 0;
+        return $this->insertGetId($data);
+    }
+
+
 }
