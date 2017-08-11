@@ -104,6 +104,7 @@
             </div>
         </div>
         <!-- End panel -->
+
         <div class="m-b-1 pull-left">
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">Add</a>
         </div>
@@ -156,7 +157,92 @@
             {!! $data['projects']->render() !!}
         </div>
 
-
-
+        <div class="modal fade"  role="dialog" aria-labelledby="gridSystemModalLabel" id="addProjectModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">Add project</h4>
+                    </div>
+                    <form action="" method="POST" class="form-horizontal">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="modal-content">
+                            <div class="form-group">
+                                <label for="modalAddProjectName" class="col-sm-3 control-label">Project Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="project_name" id="modalAddProjectName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="formSearchCustomerMail" class="col-sm-3 control-label">Company Name</label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control" id="company_name_selec2" name="project_customer_id"  style="width: 100%" >
+                                        <option></option>
+                                        @foreach($data['customers'] as $cus)
+                                            <option value="{{ $cus['customer_id'] }}"
+                                                    {{ ( isset($data['conditions']['project_customer_id'])
+                                                            &&  $data['conditions']['project_customer_id'] == $cus['customer_name'] )
+                                                            ? 'selected' : '' }}>{{ $cus['customer_name'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalAddProjectMember" class="col-sm-3 control-label">Member</label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control" id="member_name_selec2" name="project_member_id"  style="width: 100%" >
+                                        <option></option>
+                                        @foreach($data['members'] as $mem)
+                                            <option value="{{ $mem['member_id'] }}">{{ $mem['member_name'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalAddProjectStatus" class="col-sm-3 control-label">Status</label>
+                                <div class="col-sm-9">
+                                    <select type="text" class="form-control" name="project_status">
+                                        <option></option>
+                                        <option>新受付</option>
+                                        <option>見積作成中</option>
+                                        <option>見積提出済</option>
+                                        <option>受注</option>
+                                        <option>開発中</option>
+                                        <option>支払待ち</option>
+                                        <option>終了</option>
+                                        <option>キャンセル</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalAddProjectMoney" class="col-sm-3 control-label">Money</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="project_money" id="modalAddProjectMoney">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalAddProjectMemo" class="col-sm-3 control-label">Memo</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" name= "project_last_memo" id="modalAddProjectMemo"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 <script type="text/javascript" src="{{ URL::asset('js/project.js') }}"></script>
 @endsection
+
+
+
