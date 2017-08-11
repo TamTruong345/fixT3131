@@ -31,10 +31,10 @@ class Project extends Main
             $predicates[] = ['project_name', 'LIKE', '%'.$condition['project_name'].'%'];
         }
         if ($this->has($condition, 'project_customer_name')) {
-            $predicates[] = ['project_customer_name', 'LIKE', '%'.$condition['project_customer_name'].'%'];
+            $predicates[] = ['project_customer_id', 'LIKE', '%'.$condition['project_customer_name'].'%'];
         }
         if ($this->has($condition, 'project_member_name')) {
-            $predicates[] = ['project_member_name', 'LIKE', '%'.$condition['project_member_name'].'%'];
+            $predicates[] = ['project_member_id', 'LIKE', '%'.$condition['project_member_name'].'%'];
         }
         if ($this->has($condition, 'project_status')) {
             $predicates[] = ['project_status', 'LIKE', '%'.$condition['project_status'].'%'];
@@ -53,4 +53,37 @@ class Project extends Main
         }
         return $predicates;
     }
+
+    /**
+     * Delete item of Project table
+     *
+     * @param int project_id
+     */
+    protected function deleteProject($project_id) {
+        $this->where('project_id', $project_id)->update(['project_deleted' => 1]);
+    }
+
+    /**
+     * Search project by id
+     *
+     * @param int project_id
+     * @return array project detail
+     */
+    protected function fetchOne($project_id) {
+        return $this->where('project_id', $project_id)->first();
+    }
+
+    /**
+     * Edit record of customers tables
+     *
+     * @param array data update
+     */
+    protected function editRecord($data) {
+        unset($data['_token']);
+        $data['updated_at'] = date('Y-m-d H:i:s');
+        $this->where('project_id', $data['project_id'])
+            ->update($data);
+
+    }
+
 }

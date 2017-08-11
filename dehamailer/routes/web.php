@@ -40,8 +40,10 @@ Route::post('/sender/update', 'SenderController@update');
 Route::resource('sender', 'SenderController');
 
 
+Route::post('/project/update', 'ProjectController@update');
 
 Route::post('/project/search', 'ProjectController@search');
+
 Route::get('/project/reset', 'ProjectController@reset');
 
 Route::resource('project', 'ProjectController');

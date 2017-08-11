@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Config;
+
 
 class ProjectController extends Controller
 {
@@ -25,6 +27,7 @@ class ProjectController extends Controller
         if ($this->request->session()->has('search_project')) {
             $data ['conditions'] = $this->request->session()->get('search_project');
         }
+        $data['members'] =Config::get('member.members');
         $data['customers'] = Customer::fetchAll();
         $data['projects'] = Project::getList($data ['conditions']);
         return view('projects.index', array('data' => $data));
@@ -47,5 +50,40 @@ class ProjectController extends Controller
         $this->request->session()->forget('search_project');
     }
 
+    /**
+     * Get Project Detail
+     *
+     * @param int project_id
+     * @return json project detail
+     */
+    public function show($project_id) {
+        $projectDetail = Project::fetchOne($project_id);
+        return json_encode($projectDetail);
+    }
 
+    /**
+     * edit project
+     *
+     * @return Response
+     */
+
+    public function update() {
+        $data = $this->request->toArray();
+        /*echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        die();*/
+        Project::editRecord($data);
+        return redirect()->route('project.index');
+
+    }
+
+    /**
+     * Destroy project
+     *
+     * @param int project_id
+     */
+    public function destroy($project_id) {
+        Project::deleteProject($project_id);
+    }
 }
