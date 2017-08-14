@@ -137,8 +137,8 @@
                             @foreach ($data['projects'] as $pro)
                                 <tr>
                                     <td class="text-center"> <input type="checkbox" class="checkbox-item" name=""> </td>
-                                    <td>{{ $pro->project_name }}</td>
-                                    <td>
+                                    <td style="width:250px;">{{ $pro->project_name }}</td>
+                                    <td style="width:250px;">
                                         @foreach ($data['customers'] as $cus)
                                             {{ ( isset($pro['project_customer_id']) && $pro['project_customer_id'] == $cus['customer_id'] ? $cus['customer_name'] : '' )}}
                                         @endforeach
