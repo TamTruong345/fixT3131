@@ -78,7 +78,39 @@ class MailController extends Controller
 	 */
 	private function editStatusMail($time) {
 		if ($time >= 65900 && $time <= 65959) {
+		    $data = $this->getListMailNotSend();
+		    $this->deleteCustomerMailNotSend($data['mail_customer_id']);
+            $this->deleteMailNotSend($data['mail_id']);
 			Mailer::updateAllStatus(0);
 		}
 	}
+
+    /**
+     * Get list mails with mail_status = 3
+     *
+     */
+	private function getListMailNotSend() {
+        $data = Mailer::all()->where('mail_status', 3)->toArray();
+        foreach ($data as $item) {
+            $mal['mail_id'][] = $item['mail_id'];
+            $mal['mail_customer_id'][] = $item['mail_customer_id'];
+        }
+        return $mal;
+    }
+
+    /**
+     * Delete mails not send
+     *
+     */
+	private function deleteMailNotSend($mail_id) {
+        Mailer::destroy($mail_id);
+    }
+
+    /**
+     * Delete Customer 
+     *
+     */
+    private function deleteCustomerMailNotSend($mail_customer_id) {
+        Customer::destroy($mail_customer_id);
+    }
 }
