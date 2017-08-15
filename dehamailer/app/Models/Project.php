@@ -18,12 +18,16 @@ class Project extends Main
      * @param array Data import
      * @return int customer_id
      */
-    protected function getList($condition) {
-        $condition = $this->removeItemIsEmpty($condition);
-        $condition = $this->makeConditionSearchForProject($condition);
-        return $query = $this->where($condition)
-            ->orderBy('project_id', 'desc')
-            ->paginate(20);
+    protected function getList($params) {
+        $params = $this->removeItemIsEmpty($params);
+        $condition = $this->makeConditionSearchForProject($params);
+
+        $query = $this->orderBy('project_id', 'desc');
+        if (!empty($params['project_status'])) {
+            $query->whereIn("project_status", $params['project_status']);
+        }
+        $query->where($condition);
+        return $query->paginate(20);
     }
 
     private function makeConditionSearchForProject($condition) {
@@ -37,9 +41,6 @@ class Project extends Main
         }
         if ($this->has($condition, 'project_member_name')) {
             $predicates[] = ['project_member_id', 'LIKE', '%'.$condition['project_member_name'].'%'];
-        }
-        if ($this->has($condition, 'project_status')) {
-            $predicates[] = ['project_status', 'LIKE', '%'.$condition['project_status'].'%'];
         }
         if ($this->has($condition, 'created_at_from')) {
             $predicates[] = ['created_at', '>=', $this->date_format($condition['created_at_from']).' 00:00:00'];

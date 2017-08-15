@@ -82,16 +82,15 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Status</label>
                                 <div class="col-sm-9">
-                                    <select type="text" class="form-control" name="project_status">
-                                        <option></option>
-                                        <option>新受付</option>
-                                        <option>見積作成中</option>
-                                        <option>見積提出済</option>
-                                        <option>受注</option>
-                                        <option>開発中</option>
-                                        <option>支払待ち</option>
-                                        <option>終了</option>
-                                        <option>キャンセル</option>
+                                    <select type="text" id="status-getting-started" class="form-control" name="project_status[]" multiple="multiple">
+                                        <option value="新受付">新受付</option>
+                                        <option value="見積作成中">見積作成中</option>
+                                        <option value="見積提出済">見積提出済</option>
+                                        <option value="受注">受注</option>
+                                        <option value="開発中">開発中</option>
+                                        <option value="支払待ち">支払待ち</option>
+                                        <option value="終了">終了</option>
+                                        <option value="キャンセル">キャンセル</option>
                                     </select>
                                 </div>
                             </div>
@@ -153,7 +152,7 @@
                                     <td>{{ $pro->project_last_memo }}</td>
                                     <td>{{ $pro->created_at }}</td>
                                     <td>{{ $pro->updated_at }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center" style="width:170px;">
                                         <a href="#" class="btn btn-info" onclick="openModalEditProject({{ $pro->project_id}})" ><i class="fa fa-pencil-square-o visible-xs"></i><span class="hidden-xs">Edit</span></a>
                                         <a href="#" class="btn btn-danger" onclick="deleteItem({{ $pro->project_id }})"><i class="fa fa-trash visible-xs"></i><span class="hidden-xs">Delete</span></a></td>
                                 </tr>
