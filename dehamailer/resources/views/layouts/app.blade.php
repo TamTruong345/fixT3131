@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{ URL::asset('css/jscrollpane/jquery.jscrollpane.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/select2.min.css') }}" />
+    <!-- Bootstrap Multiselect -->
+    <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-multiselect.css') }}" type="text/css">
 
     <!-- Neptune CSS -->
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" />
@@ -28,6 +30,8 @@
     <![endif]-->
     <script type="text/javascript" src="{{ URL::asset('js/jquery-1.12.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/select2.min.js') }}"></script>
+
+
 
 </head>
 <body class="fixed-sidebar fixed-header content-appear skin-default">
@@ -126,9 +130,16 @@
     <script type="text/javascript" src="{{ URL::asset('js/waves/waves.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/jquery-fullscreen-plugin/jquery.fullscreen-min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/bootstrap-multiselect.js') }}"></script>
     <script>
         $('#mailSearch-form .daterange').datepicker({
             format: 'yyyy/mm/dd',
+        });
+        $(document).ready(function() {
+            $('#status-getting-started').multiselect({
+                maxHeight: 200,
+                nonSelectedText:'------------------------ Select Status ------------------------'
+            });
         });
     </script>
     <!-- Neptune JS -->
