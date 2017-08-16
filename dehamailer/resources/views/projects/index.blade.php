@@ -128,7 +128,7 @@
                             <th class="text-center">Last Memo</th>
                             <th class="text-center">Created Date</th>
                             <th class="text-center">Updated Date</th>
-                            <th class="text-center" style="width: 150px;"></th>
+                            <th class="text-center"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -136,23 +136,23 @@
                             @foreach ($data['projects'] as $pro)
                                 <tr>
                                     <td class="text-center"> <input type="checkbox" class="checkbox-item" name=""> </td>
-                                    <td style="width:250px;">{{ $pro->project_name }}</td>
-                                    <td style="width:250px;">
+                                    <td style="width: 12%;">{{ $pro->project_name }}</td>
+                                    <td style="width: 12%;">
                                         @foreach ($data['customers'] as $cus)
                                             {{ ( isset($pro['project_customer_id']) && $pro['project_customer_id'] == $cus['customer_id'] ? $cus['customer_name'] : '' )}}
                                         @endforeach
                                     </td>
-                                    <td>
+                                    <td style="width: 5%;">
                                         @foreach ($data['members'] as $mem)
                                             {{ ( isset($pro['project_member_id']) && $pro['project_member_id'] == $mem['member_id'] ? $mem['member_name'] : '' )}}
                                         @endforeach
                                     </td>
-                                    <td>{{ $pro->project_status }}</td>
-                                    <td>{{ number_format($pro->project_money) }}</td>
-                                    <td>{{ $pro->project_last_memo }}</td>
-                                    <td>{{ $pro->created_at }}</td>
-                                    <td>{{ $pro->updated_at }}</td>
-                                    <td class="text-center" style="width:170px;">
+                                    <td style="width: 7%;">{{ $pro->project_status }}</td>
+                                    <td class="text-right" style="width: 7%;">{{ number_format($pro->project_money) }}</td>
+                                    <td style="white-space: pre-line">{{ $pro->project_last_memo }}</td>
+                                    <td style="width: 11%;">{{ $pro->created_at }}</td>
+                                    <td style="width: 11%;">{{ $pro->updated_at }}</td>
+                                    <td class="text-center" style="width: 158px;">
                                         <a href="#" class="btn btn-info" onclick="openModalEditProject({{ $pro->project_id}})" ><i class="fa fa-pencil-square-o visible-xs"></i><span class="hidden-xs">Edit</span></a>
                                         <a href="#" class="btn btn-danger" onclick="deleteItem({{ $pro->project_id }})"><i class="fa fa-trash visible-xs"></i><span class="hidden-xs">Delete</span></a></td>
                                 </tr>
