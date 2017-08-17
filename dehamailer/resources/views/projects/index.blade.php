@@ -32,13 +32,14 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Company Name</label>
                                 <div class="col-sm-9">
-                                    <select type="text" class="form-control select2search" name="project_customer_name">
+                                    <select type="text"  class="form-control select2search" name="project_customer_name" style="width: 100%;">
                                         <option></option>
                                         @foreach($data['customers'] as $cus)
                                             <option value="{{ $cus['customer_id'] }}"
-                                                    {{ ( isset($data['conditions']['project_customer_id'])
-                                                            &&  $data['conditions']['project_customer_id'] == $cus['customer_id'] )
-                                                            ? 'selected' : '' }}>{{ $cus['customer_name'] }}
+                                                    {{ isset($data['conditions']['project_customer_name'])
+                                                             && ($data['conditions']['project_customer_name'] == $cus['customer_id'])
+                                                             ? 'selected' : '' }}>
+                                                {{ $cus['customer_name'] }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -47,10 +48,12 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Member</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control select2search" name="project_member_name">
+                                    <select  class="form-control select2search" name="project_member_name" style="width: 100%;">
                                         <option></option>
                                         @foreach ($data['members'] as $mem)
-                                            <option value="{{ $mem['member_id'] }}">
+                                            <option value="{{ $mem['member_id'] }}" {{ isset($data['conditions']['project_member_name'])
+                                                             && ($data['conditions']['project_member_name'] == $mem['member_id'])
+                                                             ? 'selected' : '' }}>
                                                 {{ $mem['member_name'] }}
                                             </option>
                                         @endforeach
@@ -82,15 +85,31 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Status</label>
                                 <div class="col-sm-9">
-                                    <select type="text" id="status-getting-started" class="form-control" name="project_status[]" multiple="multiple">
-                                        <option value="新受付">新受付</option>
-                                        <option value="見積作成中">見積作成中</option>
-                                        <option value="見積提出済">見積提出済</option>
-                                        <option value="受注">受注</option>
-                                        <option value="開発中">開発中</option>
-                                        <option value="支払待ち">支払待ち</option>
-                                        <option value="終了">終了</option>
-                                        <option value="キャンセル">キャンセル</option>
+                                    <select data-placeholder="Select Status" name="project_status[]" class="chosen-select-no-results form-control" multiple>
+                                            <option value="新受付" @foreach($list_status as $con)
+                                                                        {{ (strcmp($con, '新受付') == 0) ? 'selected' : '' }}
+                                                                @endforeach >新受付</option>
+                                            <option value="見積作成中" @foreach($list_status as $con)
+                                                                        {{ (strcmp($con, '見積作成中') == 0) ? 'selected' : '' }}
+                                                                    @endforeach >見積作成中</option>
+                                            <option value="見積提出済" @foreach($list_status as $con)
+                                                                        {{ (strcmp($con, '見積提出済') == 0) ? 'selected' : '' }}
+                                                                     @endforeach>見積提出済</option>
+                                            <option value="受注" @foreach($list_status as $con)
+                                                                    {{ (strcmp($con, '受注') == 0) ? 'selected' : '' }}
+                                                                @endforeach>受注</option>
+                                            <option value="開発中" @foreach($list_status as $con)
+                                                                     {{ (strcmp($con, '開発中') == 0) ? 'selected' : '' }}
+                                                                  @endforeach >開発中</option>
+                                            <option value="支払待ち" @foreach($list_status as $con)
+                                                                        {{ (strcmp($con, '支払待ち') == 0) ? 'selected' : '' }}
+                                                                     @endforeach >支払待ち</option>
+                                            <option value="終了" @foreach($list_status as $con)
+                                                                    {{ (strcmp($con, '終了') == 0) ? 'selected' : '' }}
+                                                                @endforeach >終了</option>
+                                            <option value="キャンセル" @foreach($list_status as $con)
+                                                                        {{ (strcmp($con, 'キャンセル') == 0) ? 'selected' : '' }}
+                                                                    @endforeach >キャンセル</option>
                                     </select>
                                 </div>
                             </div>

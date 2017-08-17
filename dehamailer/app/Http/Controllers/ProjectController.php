@@ -28,10 +28,16 @@ class ProjectController extends Controller
         if ($this->request->session()->has('search_project')) {
             $data ['conditions'] = $this->request->session()->get('search_project');
         }
+
+        if ( isset($data['conditions']['project_status']) ) {
+            $list_status = $data['conditions']['project_status'];
+        } else {
+            $list_status = [];
+        }
         $data['members'] = Config::get('member.members');
         $data['customers'] = Customer::fetchAll();
         $data['projects'] = Project::getList($data ['conditions']);
-        return view('projects.index', array('data' => $data));
+        return view('projects.index', array('data' => $data, 'list_status' => $list_status));
     }
     public function store() {
         $data = $this->request->toArray();
