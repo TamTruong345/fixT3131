@@ -25,8 +25,13 @@ class ProjectController extends Controller
     public function index() {
 
         $data = ['conditions' => []];
+        $data['list_status_selected'] = [];
         if ($this->request->session()->has('search_project')) {
             $data ['conditions'] = $this->request->session()->get('search_project');
+        }
+
+        if ( isset($data['conditions']['project_status']) ) {
+            $data['list_status_selected'] = $data['conditions']['project_status'];
         }
         $data['members'] = Config::get('member.members');
         $data['customers'] = Customer::fetchAll();
