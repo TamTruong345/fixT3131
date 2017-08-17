@@ -33,6 +33,7 @@ class ProjectController extends Controller
         if ( isset($data['conditions']['project_status']) ) {
             $data['list_status_selected'] = $data['conditions']['project_status'];
         }
+
         $data['members'] = Config::get('member.members');
         $data['customers'] = Customer::fetchAll();
         $data['projects'] = Project::getList($data ['conditions']);
