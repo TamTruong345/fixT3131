@@ -168,7 +168,7 @@
                                     </td>
                                     <td style="width: 7%;">{{ $pro->project_status }}</td>
                                     <td class="text-right" style="width: 7%;">{{ number_format($pro->project_money) }}</td>
-                                    <td style="white-space: pre-line">{{ $pro->project_last_memo }}</td>
+                                    <td style="white-space: pre-line"  data-id="{{ $pro->project_id }}" class="editProjectLastMemo" contenteditable="true">{{ $pro->project_last_memo }}</td>
                                     <td style="width: 11%;">{{ $pro->created_at }}</td>
                                     <td style="width: 11%;">{{ $pro->updated_at }}</td>
                                     <td class="text-center" style="width: 158px;">
