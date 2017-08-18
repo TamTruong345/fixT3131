@@ -21,6 +21,16 @@ function deleteItem(project_id) {
 
 $(document).ready(function() {
     $("#select2search ,.project-member-select2, #company_name_selec2,#member_name_selec2").select2();
+
+    // Edit last memo
+    $('.editProjectLastMemo').blur(function() {
+        $('.loader').attr('style', 'display: block');
+        var project_last_memo = $(this).text();
+        var project_id = $(this).data('id');
+        $.get('project/updateLastMemo', {project_last_memo: project_last_memo, project_id: project_id}, function() {
+            $('.loader').attr('style', 'display: none');
+        });
+    });
 });
 function resetSearch() {
     $('.loader').attr('style', 'display: block');
@@ -76,3 +86,4 @@ function openModalEditProject(project_id) {
         }
     });
 }
+

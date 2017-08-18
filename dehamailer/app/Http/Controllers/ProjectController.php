@@ -96,4 +96,15 @@ class ProjectController extends Controller
         $this->request->session()->put('search_project', $condition);
         return redirect()->route('project.index');
     }
+
+    /**
+     * Edit last memo
+     */
+    public function updateLastMemo() {
+        $project_id = $this->request->get('project_id');
+        $project_last_memo = $this->request->get('project_last_memo');
+        $project = Project::find($project_id);
+        $project->project_last_memo = $project_last_memo;
+        $project->save();
+    }
 }
