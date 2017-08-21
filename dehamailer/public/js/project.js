@@ -18,7 +18,6 @@ function deleteItem(project_id) {
     }
 }
 
-
 $(document).ready(function() {
     $("#select2search ,.project-member-select2, #company_name_selec2,#member_name_selec2").select2();
 
@@ -31,7 +30,34 @@ $(document).ready(function() {
             $('.loader').attr('style', 'display: none');
         });
     });
+
+    // Set value customer_name, member_name into addModal
+    $('#addSubmit').click(function() {
+        var customer_name = $('#combobox_add_project_customer_name').next().children();
+        var member_name = $('#combobox_add_project_member_name').next().children();
+        $('#project_customer_name_new').val(customer_name.val());
+        $('#project_member_name_new').val(member_name.val());
+    });
+
+    $('#addProjectModal').click(function() {
+        var customer_name = $('#combobox_add_project_customer_name').next().children();
+        var member_name = $('#combobox_add_project_member_name').next().children();
+
+        customer_name.keyup(function(e) {
+            var code = e.keyCode || e.which;
+            if ((code >= 65 && code <= 90) || (code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 222 || code == 8 || (code >= 186 && code <= 192) ) {
+                $('#combobox_add_project_customer_name').val(null);
+            }
+        });
+        member_name.keyup(function(e) {
+            var code = e.keyCode || e.which;
+            if ((code >= 65 && code <= 90) || (code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 222 || code == 8 || (code >= 186 && code <= 192)) {
+                $('#combobox_add_project_member_name').val(null);
+            }
+        });
+    });
 });
+
 function resetSearch() {
     $('.loader').attr('style', 'display: block');
     $.ajax({
@@ -53,7 +79,6 @@ $(document).ready(function() {
     $('#modalEditProjectMemberId').select2();
 });
 
-
 function openModalEditProject(project_id) {
     $('.loader').attr('style', 'display: block');
     var _token = $('input[name="_token"]').val();
@@ -63,7 +88,6 @@ function openModalEditProject(project_id) {
         data: { _token : _token },
         success: function(response) {
             var data = JSON.parse(response);
-            console.log(data);
             $('#modalEditProjectId').val(data.project_id);
             $('#modalEditProjectName').val(data.project_name);
             $('#modalEditProjectCustomerId').select2("trigger", "select", {
@@ -86,4 +110,3 @@ function openModalEditProject(project_id) {
         }
     });
 }
-

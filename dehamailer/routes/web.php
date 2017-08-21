@@ -48,5 +48,3 @@ Route::post('/project/search', 'ProjectController@search');
 Route::get('/project/updateLastMemo', 'ProjectController@updateLastMemo');
 
 Route::resource('project', 'ProjectController');
-
-
