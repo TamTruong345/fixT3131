@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Project;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Config;
 
@@ -34,13 +35,26 @@ class ProjectController extends Controller
             $data['list_status_selected'] = $data['conditions']['project_status'];
         }
 
-        $data['members'] = Config::get('member.members');
+        $data['members'] = Member::fetchAll();
         $data['customers'] = Customer::fetchAll();
         $data['projects'] = Project::getList($data ['conditions']);
         return view('projects.index', array('data' => $data));
     }
     public function store() {
         $data = $this->request->toArray();
+        $dataCus = [];
+        $dataCus['customer_name'] = $data['customer_name'];
+
+        $dataMem = [];
+        $dataMem['member_name'] = $data['member_name'];
+
+        if(empty($data['project_customer_id'])) {
+            $data['project_customer_id'] = Customer::addNewRecord($dataCus);
+        }
+        if(empty($data['project_member_id'])) {
+            $data['project_member_id'] = Member::addNewRecord($dataMem);
+        }
+
         Project::addNewRecord($data);
         flash('Add project success!')->success();
         return redirect()->route('project.index');

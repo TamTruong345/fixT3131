@@ -27,7 +27,7 @@ class Project extends Main
             $query->whereIn("project_status", $params['project_status']);
         }
         $query->where($condition);
-        return $query->paginate(20);
+        return $query->paginate(4);
     }
 
     private function makeConditionSearchForProject($condition) {
@@ -98,6 +98,8 @@ class Project extends Main
      */
     protected function addNewRecord($data) {
         unset($data['_token']);
+        unset($data['customer_name']);
+        unset($data['member_name']);
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['project_deleted'] = 0;
         return $this->insertGetId($data);
