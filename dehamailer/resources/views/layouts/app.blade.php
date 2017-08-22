@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="{{ URL::asset('css/jscrollpane/jquery.jscrollpane.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/select2.min.css') }}" />
-    <!-- Bootstrap chosen multiselect -->
     <link rel="stylesheet" href="{{ URL::asset('css/chosen.min.css') }}" type="text/css">
 
     <!-- Neptune CSS -->
+    <link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" />
     <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,6 +30,8 @@
     <![endif]-->
     <script type="text/javascript" src="{{ URL::asset('js/jquery-1.12.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/select2.min.js') }}"></script>
+
+
 
 </head>
 <body class="fixed-sidebar fixed-header content-appear skin-default">
@@ -129,6 +131,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/jquery-fullscreen-plugin/jquery.fullscreen-min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
     <script>
         $('#mailSearch-form .daterange').datepicker({
             format: 'yyyy/mm/dd',
@@ -138,6 +141,8 @@
         });
     </script>
     <!-- Neptune JS -->
+    <script type="text/javascript" src="{{ URL::asset('js/project-ui.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+
 </body>
 </html>

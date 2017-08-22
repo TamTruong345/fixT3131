@@ -98,6 +98,8 @@ class Project extends Main
      */
     protected function addNewRecord($data) {
         unset($data['_token']);
+        unset($data['customer_name']);
+        unset($data['member_name']);
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['project_deleted'] = 0;
         return $this->insertGetId($data);

@@ -8431,7 +8431,9 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
   top: 80px;
   left: 50%;
 }
-
+.form-add .custom-combobox {
+  width: 93%;
+}
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
@@ -8441,3 +8443,42 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.custom-combobox {
+  position: relative;
+  display: inline-block;
+}
+.custom-combobox-toggle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin-left: -2px;
+  padding: 0;
+}
+.custom-combobox-input {
+  margin: 0;
+  padding: 5px 10px;
+}
+.ui-autocomplete {
+  z-index: 99999;
+}
+
+.custom-combobox{
+  width: 87%;
+}
+
+.custom-combobox-input {
+  width: 100%;
+}
+
+.ui-widget.ui-widget-content {
+  background-color: white;
+  font-size: small;
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited, a.ui-button, a:link.ui-button, a:visited.ui-button, .ui-button
+{
+  background:white;
+}
+
+

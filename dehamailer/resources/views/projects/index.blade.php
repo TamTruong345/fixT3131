@@ -32,15 +32,10 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Company Name</label>
                                 <div class="col-sm-9">
-                                    <select type="text"  class="form-control select2search" name="project_customer_name" style="width: 100%;">
-                                        <option></option>
+                                    <select id="combobox_project_customer_name" type="text"  class="form-control combobox" name="project_customer_name" style="width: 100%;">
+                                        <option value=""></option>
                                         @foreach($data['customers'] as $cus)
-                                            <option value="{{ $cus['customer_id'] }}"
-                                                    {{ isset($data['conditions']['project_customer_name'])
-                                                             && ($data['conditions']['project_customer_name'] == $cus['customer_id'])
-                                                             ? 'selected' : '' }}>
-                                                {{ $cus['customer_name'] }}
-                                            </option>
+                                            <option value="{{ $cus['customer_id'] }}"{{ isset($data['conditions']['project_customer_name'])&& ($data['conditions']['project_customer_name'] == $cus['customer_id']) ? 'selected' : '' }}>{{ $cus['customer_name'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -48,14 +43,10 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label form-label">Member</label>
                                 <div class="col-sm-9">
-                                    <select  class="form-control select2search" name="project_member_name" style="width: 100%;">
-                                        <option></option>
+                                    <select id="combobox_project_member_name" type="text" class="form-control combobox" name="project_member_name" style="width: 100%;">
+                                        <option value=""></option>
                                         @foreach ($data['members'] as $mem)
-                                            <option value="{{ $mem['member_id'] }}" {{ isset($data['conditions']['project_member_name'])
-                                                             && ($data['conditions']['project_member_name'] == $mem['member_id'])
-                                                             ? 'selected' : '' }}>
-                                                {{ $mem['member_name'] }}
-                                            </option>
+                                            <option value="{{ $mem['member_id'] }}" {{ isset($data['conditions']['project_member_name'])&& ($data['conditions']['project_member_name'] == $mem['member_id']) ? 'selected' : '' }}>{{ $mem['member_name'] }} </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -196,7 +187,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">Add project</h4>
                     </div>
-                    <form action="" method="POST" class="form-horizontal">
+                    <form action="" method="POST" class="form-add form-horizontal">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="modal-content">
                             <div class="form-group">
@@ -208,28 +199,25 @@
                             <div class="form-group">
                                 <label for="formSearchCustomerMail" class="col-sm-3 control-label">Company Name</label>
                                 <div class="col-sm-9">
-                                    <select type="text" class="form-control" id="company_name_selec2" name="project_customer_id"  style="width: 100%" >
+                                    <select type="text" class="form-control combobox" id="combobox_add_project_customer_name" name="project_customer_id"   >
                                         <option></option>
                                         @foreach($data['customers'] as $cus)
-                                            <option value="{{ $cus['customer_id'] }}"
-                                                    {{ ( isset($data['conditions']['project_customer_id'])
-                                                            &&  $data['conditions']['project_customer_id'] == $cus['customer_name'] )
-                                                            ? 'selected' : '' }}>{{ $cus['customer_name'] }}
-                                            </option>
+                                            <option value="{{ $cus['customer_id'] }}">{{ $cus['customer_name'] }}</option>
                                         @endforeach
                                     </select>
+                                    <input type="hidden" name="customer_name" id="project_customer_name_new" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="modalAddProjectMember" class="col-sm-3 control-label">Member</label>
                                 <div class="col-sm-9">
-                                    <select type="text" class="form-control" id="member_name_selec2" name="project_member_id"  style="width: 100%" >
+                                    <select type="text" class="form-control combobox" id="combobox_add_project_member_name" name="project_member_id"  style="width: 100%" >
                                         <option></option>
                                         @foreach($data['members'] as $mem)
-                                            <option value="{{ $mem['member_id'] }}">{{ $mem['member_name'] }}
-                                            </option>
+                                            <option value="{{ $mem['member_id'] }}">{{ $mem['member_name'] }}</option>
                                         @endforeach
                                     </select>
+                                    <input type="hidden" name="member_name" class="form-control" id="project_member_name_new">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -264,7 +252,7 @@
                         <div class="modal-footer">
                             <div class="form-group">
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" id="addSubmit" class="btn btn-primary">Save</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
@@ -359,13 +347,11 @@
                                 </div>
                             </div>
                         </form>
-
-
                     </div>
                 <!-- Modal content-->
             </div>
         </div>
-
+    </div>
 <script type="text/javascript" src="{{ URL::asset('js/project.js') }}"></script>
 @endsection
 
