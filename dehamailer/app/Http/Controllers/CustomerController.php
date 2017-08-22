@@ -141,8 +141,6 @@ class CustomerController extends Controller
 				} else {
 					$fail += 1;
 				}
-			} else {
-				$fail += 1;
 			}
 		}
 		try {
