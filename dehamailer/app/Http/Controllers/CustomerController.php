@@ -120,6 +120,7 @@ class CustomerController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|string
 	 */
 	public function import() {
+        $partten = "#[a-zA-Z0-9_\-\.]{2,100}@[a-zA-Z0-9_\-\.]{2,100}#";
 		$success = 0;
 		$fail = 0;
 		$created_at = date('Y-m-d H:i:s');
@@ -127,20 +128,24 @@ class CustomerController extends Controller
 		$data = Excel::selectSheets('customers')->load(Input::file('file_import'), function($reader) {
 		})->get(array('company', 'customer', 'email'));
 		foreach ($data->toArray() as $key => $val) {
-			if ( !empty($val['email']) ) {
-				$emails = Customer::checkEmailExist($val['email']);
-				if (empty($emails)) {
-					$customers[] = [
-						'customer_name' => $val['company'],
-						'customer_full_name' => $val['customer'],
-						'customer_mail' => $val['email'],
-						'created_at' => $created_at,
-						'customer_deleted' => 0
-					];
-					$success += 1;
-				} else {
-					$fail += 1;
-				}
+		    if ( !empty( $val['email']) ) {
+                if (preg_match($partten, $val['email']) == true) {
+                    $emails = Customer::checkEmailExist($val['email']);
+                    if (empty($emails)) {
+                        $customers[] = [
+                            'customer_name' => $val['company'],
+                            'customer_full_name' => $val['customer'],
+                            'customer_mail' => $val['email'],
+                            'created_at' => $created_at,
+                            'customer_deleted' => 0
+                        ];
+                        $success += 1;
+                    } else {
+                        $fail += 1;
+                    }
+                }else {
+                    $fail += 1;
+                }
 			}
 		}
 		try {
