@@ -132,16 +132,18 @@
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/chosen.jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/project-ui.js') }}"></script>
     <script>
-        $('#mailSearch-form .daterange').datepicker({
-            format: 'yyyy/mm/dd',
+        $('.daterange').datepicker({
+            dateFormat: 'yy-mm-dd'
         });
         $(document).ready(function() {
             $('.chosen-select-no-results').chosen();
         });
     </script>
+
     <!-- Neptune JS -->
-    <script type="text/javascript" src="{{ URL::asset('js/project-ui.js') }}"></script>
+
     <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
 
 </body>
