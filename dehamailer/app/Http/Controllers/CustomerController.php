@@ -120,33 +120,28 @@ class CustomerController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse|string
 	 */
 	public function import() {
-        $partten = "#[a-zA-Z0-9_\-\.]{2,100}@[a-zA-Z0-9_\-\.]{2,100}#";
 		$success = 0;
 		$fail = 0;
-		$created_at = date('Y-m-d H:i:s');
 		$customers = [];
 		$data = Excel::selectSheets('customers')->load(Input::file('file_import'), function($reader) {
 		})->get(array('company', 'customer', 'email'));
 		foreach ($data->toArray() as $key => $val) {
-		    if ( !empty( $val['email']) ) {
-                if (preg_match($partten, $val['email']) == true) {
-                    $emails = Customer::checkEmailExist($val['email']);
-                    if (empty($emails)) {
-                        $customers[] = [
-                            'customer_name' => $val['company'],
-                            'customer_full_name' => $val['customer'],
-                            'customer_mail' => $val['email'],
-                            'created_at' => $created_at,
-                            'customer_deleted' => 0
-                        ];
-                        $success += 1;
-                    } else {
-                        $fail += 1;
-                    }
-                }else {
-                    $fail += 1;
-                }
-			}
+		    if ($this->isEmpty($val['email'])) {
+		        continue;
+            }
+
+            if ($this->isRegexEmail($val['email'])) {
+                $fail += 1;
+		        continue;
+            }
+            
+            $emails = Customer::checkEmailExist($val['email']);
+            if (empty($emails)) {
+                $customers[] = $this->isArrayCustomerImport($val);
+                $success += 1;
+            } else {
+                $fail += 1;
+            }
 		}
 		try {
 			Customer::addMultiRecord($customers);
@@ -157,4 +152,33 @@ class CustomerController extends Controller
 		flash("success: $success, fail: $fail")->success();
 		return redirect()->route('customer.index');
 	}
+
+	public function isEmpty($email) {
+	    $flag = true;
+	    if(!empty($email)) {
+	        $flag = false;
+        }
+        return $flag;
+    }
+
+    public function isRegexEmail($email) {
+        $partten = "#[a-zA-Z0-9_\-\.]{2,100}@[a-zA-Z0-9_\-\.]{2,100}#";
+        $flag = true;
+        if (preg_match($partten, $email)) {
+            $flag = false;
+        }
+        return $flag;
+    }
+
+    public function isArrayCustomerImport($data) {
+        return [
+            'customer_name' => $data['company'],
+            'customer_full_name' => $data['customer'],
+            'customer_mail' => $data['email'],
+            'created_at' => date('Y-m-d H:i:s'),
+            'customer_deleted' => 0
+        ];
+    }
+
 }
+
