@@ -86,6 +86,19 @@ class ProjectController extends Controller
 
     public function update() {
         $data = $this->request->toArray();
+        $dataCus = [];
+        $dataCus['customer_name'] = $data['customer_name'];
+
+        $dataMem = [];
+        $dataMem['member_name'] = $data['member_name'];
+
+        if(empty($data['project_customer_id'])) {
+            $data['project_customer_id'] = Customer::addNewRecord($dataCus);
+        }
+        if(empty($data['project_member_id'])) {
+            $data['project_member_id'] = Member::addNewRecord($dataMem);
+        }
+
         Project::editRecord($data);
         flash('Edit project success!');
         return redirect()->route('project.index');
