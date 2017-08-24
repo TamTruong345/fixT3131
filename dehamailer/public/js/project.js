@@ -109,4 +109,9 @@ function openModalEditProject(project_id) {
             console.log(data);
         }
     });
+
+    $(document).ready(function() {
+        $('.form-group').sortable();
+
+    } );
 }

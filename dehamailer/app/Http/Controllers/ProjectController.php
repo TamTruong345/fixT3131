@@ -7,7 +7,7 @@ use App\Models\Project;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Config;
-
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -24,7 +24,6 @@ class ProjectController extends Controller
      */
 
     public function index() {
-
         $data = ['conditions' => []];
         $data['list_status_selected'] = [];
         if ($this->request->session()->has('search_project')) {
@@ -39,6 +38,7 @@ class ProjectController extends Controller
         $data['customers'] = Customer::fetchAll();
         $data['projects'] = Project::getList($data ['conditions']);
         return view('projects.index', array('data' => $data));
+
     }
     public function store() {
         $data = $this->request->toArray();
@@ -120,5 +120,12 @@ class ProjectController extends Controller
         $project = Project::find($project_id);
         $project->project_last_memo = $project_last_memo;
         $project->save();
+    }
+
+    public function orderBy($project_name,$project_customer_id)   {
+        return  [
+            'project_name' => $project_name,
+            'project_customer_id' => $project_customer_id
+        ];
     }
 }

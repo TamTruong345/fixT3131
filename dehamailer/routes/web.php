@@ -47,4 +47,6 @@ Route::post('/project/search', 'ProjectController@search');
 
 Route::get('/project/updateLastMemo', 'ProjectController@updateLastMemo');
 
+Route::get('/project/orderby','ProjectController@orderBy');
+
 Route::resource('project', 'ProjectController');

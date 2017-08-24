@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/chosen.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ URL::asset('css/dataTables.bootstrap.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ URL::asset('css/dataTables.responsive.css') }}" type="text/css">
 
     <!-- Neptune CSS -->
     <link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.min.css') }}" type="text/css">
@@ -132,6 +134,8 @@
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/chosen.jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/dataTables.bootstrap.min.js') }}"></script>
     <script>
         $('#mailSearch-form .daterange').datepicker({
             format: 'yyyy/mm/dd',

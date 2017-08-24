@@ -23,11 +23,12 @@ class Project extends Main
         $condition = $this->makeConditionSearchForProject($params);
 
         $query = $this->orderBy('project_id', 'desc');
+//          $query = $this->orderBy(['project_name'=>'desc','project_customer_name'=>'desc']);
         if (!empty($params['project_status'])) {
             $query->whereIn("project_status", $params['project_status']);
         }
         $query->where($condition);
-        return $query->paginate(20);
+        return $query->paginate(5);
     }
 
     private function makeConditionSearchForProject($condition) {

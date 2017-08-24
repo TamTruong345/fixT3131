@@ -8434,6 +8434,23 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
 .form-add .custom-combobox {
   width: 93%;
 }
+.form-group .custom-combobox  {
+  width: 92%;
+  font-size: small;
+}
+.form-control {
+  font-size: small;
+  width: 99%;
+}
+.ui-widget.ui-widget-content {
+  font-size: small;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  font-size: small;
+}
+#add_project .custom-combobox  {
+  width: 93%;
+}
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
@@ -8481,4 +8498,16 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
   background:white;
 }
 
+.chosen-container-multi .chosen-choices {
+  width: 101%;
+}
 
+th.sorting_asc {
+  background: url(sort_asc.png) no-repeat center right;
+  padding-left: 10px;
+
+}
+th.sorting_asc  {
+  background: url(sort_desc.png) no-repeat center right;
+  padding-left: 19px;
+}

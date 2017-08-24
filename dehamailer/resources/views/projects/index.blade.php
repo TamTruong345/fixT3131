@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="formSearchCustomerName" class="col-sm-3 control-label form-label">Project Name</label>
+                                <label for="formSearchCustomerName" class="col-sm-3 control-label form-label sorting_asc">Project Name</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" name="project_name" value="<?php echo ( isset($data['conditions']['project_name']) ) ? $data['conditions']['project_name'] : ''; ?>">
                                 </div>
@@ -126,18 +126,18 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered" id="sorting_asc">
                         <thead>
-                        <tr>
+                        <tr id="tr_orderby">
                             <th class="text-center"><input type="checkbox" id="checkAllCustomer" name=""></th>
-                            <th class="text-center">Project Name</th>
-                            <th class="text-center">Company Name</th>
-                            <th class="text-center">Member</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Money</th>
-                            <th class="text-center">Last Memo</th>
-                            <th class="text-center">Created Date</th>
-                            <th class="text-center">Updated Date</th>
+                            <th class="text-center sorting_asc">Project Name</th>
+                            <th class="text-center sorting_asc">Company Name</th>
+                            <th class="text-center sorting_asc" id="member_name">Member</th>
+                            <th class="text-center sorting_asc">Status</th>
+                            <th class="text-center sorting_asc">Money</th>
+                            <th class="text-center sorting_asc">Last Memo</th>
+                            <th class="text-center sorting_asc">Created Date</th>
+                            <th class="text-center sorting_asc">Updated Date</th>
                             <th class="text-center"></th>
                         </tr>
                         </thead>
@@ -152,7 +152,7 @@
                                             {{ ( isset($pro['project_customer_id']) && $pro['project_customer_id'] == $cus['customer_id'] ? $cus['customer_name'] : '' )}}
                                         @endforeach
                                     </td>
-                                    <td style="width: 5%;">
+                                    <td style="width: 7%;">
                                         @foreach ($data['members'] as $mem)
                                             {{ ( isset($pro['project_member_id']) && $pro['project_member_id'] == $mem['member_id'] ? $mem['member_name'] : '' )}}
                                         @endforeach
@@ -187,7 +187,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="gridSystemModalLabel">Add project</h4>
                     </div>
-                    <form action="" method="POST" class="form-add form-horizontal">
+                    <form action="" method="POST" class="form-add form-horizontal" id="add_project">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="modal-content">
                             <div class="form-group">
