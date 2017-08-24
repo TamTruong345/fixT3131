@@ -8432,7 +8432,7 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
   left: 50%;
 }
 .form-add .custom-combobox {
-  width: 93%;
+  width: 92.5%;
 }
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
