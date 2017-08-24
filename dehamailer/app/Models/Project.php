@@ -84,6 +84,8 @@ class Project extends Main
      */
     protected function editRecord($data) {
         unset($data['_token']);
+        unset($data['customer_name']);
+        unset($data['member_name']);
         $data['updated_at'] = date('Y-m-d H:i:s');
         $this->where('project_id', $data['project_id'])
             ->update($data);

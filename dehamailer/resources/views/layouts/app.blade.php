@@ -136,16 +136,19 @@
     <script type="text/javascript" src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/dataTables.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ URL::asset('js/project-ui.js') }}"></script>
     <script>
-        $('#mailSearch-form .daterange').datepicker({
-            format: 'yyyy/mm/dd',
+        $('.daterange').datepicker({
+            dateFormat: 'yy-mm-dd'
         });
         $(document).ready(function() {
             $('.chosen-select-no-results').chosen();
         });
     </script>
+
     <!-- Neptune JS -->
-    <script type="text/javascript" src="{{ URL::asset('js/project-ui.js') }}"></script>
+
     <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
 
 </body>

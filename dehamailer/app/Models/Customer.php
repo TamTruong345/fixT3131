@@ -110,12 +110,11 @@ class Customer extends Main {
 			$predicates[] = ['created_at', '<=', $this->date_format($condition['created_at_to']).' 23:59:59'];
 		}
 		if ($this->has($condition, 'customer_last_sent_mail_from')) {
-			$predicates[] = ['customer_last_sent_mail', '<=', $this->date_format($condition['customer_last_sent_mail_from']).' 00:00:00'];
+			$predicates[] = ['customer_last_sent_mail', '>=', $this->date_format($condition['customer_last_sent_mail_from']).' 00:00:00'];
 		}
 		if ($this->has($condition, 'customer_last_sent_mail_to')) {
-			$predicates[] = ['customer_last_sent_mail', '>=', $this->date_format($condition['customer_last_sent_mail_to']).' 23:59:59'];
+			$predicates[] = ['customer_last_sent_mail', '<=', $this->date_format($condition['customer_last_sent_mail_to']).' 23:59:59'];
 		}
-		
 		return $predicates;
 	}
 
